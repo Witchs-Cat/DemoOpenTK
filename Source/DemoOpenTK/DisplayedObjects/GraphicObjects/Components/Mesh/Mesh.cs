@@ -6,16 +6,19 @@ namespace DemoOpenTK
 {
     public class Mesh
     {
+
         private readonly Vector3[] _coordinates;
         private readonly Vector3[] _normals;
         private readonly Vector2[] _textures;
+        private readonly uint[] _vertexIndexes;
 
         public Mesh(Vector3[] coordinates, Vector3[] normals,
-             Vector2[] materials)
+             Vector2[] materials, uint[] vertexIndexes)
         {
             _coordinates = coordinates;
             _normals = normals;
             _textures = materials;
+            _vertexIndexes = vertexIndexes;
         }
 
         public void Apply()
@@ -29,7 +32,7 @@ namespace DemoOpenTK
             GL.EnableClientState(ArrayCap.TextureCoordArray);
             GL.TexCoordPointer(3, TexCoordPointerType.Float, 0, _textures);
 
-            GL.DrawArrays(PrimitiveType.Triangles,0, _textures.Count());
+            GL.DrawElements(PrimitiveType.Triangles, _vertexIndexes.Length, DrawElementsType.UnsignedInt, _vertexIndexes);
 
             GL.DisableClientState(ArrayCap.VertexArray);
             GL.DisableClientState(ArrayCap.NormalArray);
