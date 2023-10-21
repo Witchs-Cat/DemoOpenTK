@@ -7,9 +7,13 @@ namespace DemoOpenTK
     public abstract class GeometryEntity : IDisplayedObject
     {
         private Matrix4 _modelMatrix;
+        
+        public GeometryEntity(BaseMaterial material)
+        {
+            Material = material; 
+        }
 
-        public GeometryEntity()
-        { }
+        public BaseMaterial Material { get; protected set; }
 
         public virtual void OnRenderFrame(in FrameEventArgs args)
         { }

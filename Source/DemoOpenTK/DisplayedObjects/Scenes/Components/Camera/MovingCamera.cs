@@ -1,8 +1,9 @@
-﻿using OpenTK.Mathematics;
+﻿using Microsoft.Extensions.Logging;
+using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
-namespace DemoOpenTK.DisplayedObjects.Camera
+namespace DemoOpenTK
 {
     public class MovingCamera : BaseCamera
     {
@@ -13,8 +14,8 @@ namespace DemoOpenTK.DisplayedObjects.Camera
         private readonly KeyboardState _keyboard;
         private readonly MouseState _mouse;
 
-        public MovingCamera(KeyboardState keyboard, MouseState mouse, 
-            float angleO = 0, float angleF = 0, float radius = 0) 
+        public MovingCamera(KeyboardState keyboard, MouseState mouse,
+            float angleO = 0, float angleF = 0, float radius = 0)
         {
             _keyboard = keyboard;
             _mouse = mouse;
@@ -22,25 +23,32 @@ namespace DemoOpenTK.DisplayedObjects.Camera
             AngleO = angleO;
             AngleF = angleF;
             Radius = radius;
-           
+
             UpdateCameraPosition();
         }
 
         /// <summary>
         /// Y ~ XZ
         /// </summary>
-        public float AngleO { 
+        public float AngleO
+        {
             get => _angleO;
-            private set {
+            private set
+            {
                 //if (value > 85) value = 85;
                 //else if (value < 5) value = 5; 
 
                 //_angleO = value;
-
+                float newValue;
                 if (value >= 0)
-                    _angleO = value % 360;
+                    newValue = value % 360;
                 else
-                    _angleO = 360 + value % 360;
+                    newValue = 360 + value % 360;
+
+                if (newValue == 0)
+                    newValue += 0.0001f;
+
+                _angleO = newValue;
             }
         }
         /// <summary>
@@ -49,20 +57,23 @@ namespace DemoOpenTK.DisplayedObjects.Camera
         public float AngleF
         {
             get => _angleF;
-            private set {
+            private set
+            {
                 if (value >= 0)
                     _angleF = value % 360;
                 else
                     _angleF = 360 + value % 360;
             }
         }
-        public float Radius {
+        public float Radius
+        {
             get => _radius;
-            private set { 
+            private set
+            {
                 _radius = value;
-                if (_radius < 0) 
+                if (_radius < 0)
                     _radius = 0;
-            } 
+            }
         }
 
         public override void OnUpdateFrame(in FrameEventArgs args)
@@ -82,18 +93,16 @@ namespace DemoOpenTK.DisplayedObjects.Camera
             float radF = AngleF / 180 * 3.14159f;
             float radO = AngleO / 180 * 3.14159f;
 
+            float cosO = MathF.Cos(radO), sinO = MathF.Sin(radO);
+            float cosF = MathF.Cos(radF), sinF = MathF.Sin(radF);
+
             Vector3 newEyePosition = new();
-            newEyePosition.X = Convert.ToSingle(Radius * Math.Sin(radO) * Math.Cos(radF)) + TargetPosition.X;
-            newEyePosition.Y = Convert.ToSingle(Radius * Math.Cos(radO)) + TargetPosition.Y;
-            newEyePosition.Z = Convert.ToSingle(Radius * Math.Sin(radO) * Math.Sin(radF)) + TargetPosition.Z;
+            newEyePosition.X = Radius * sinO * cosF + TargetPosition.X;
+            newEyePosition.Y = Radius * cosO + TargetPosition.Y;
+            newEyePosition.Z = Radius * sinO * sinF + TargetPosition.Z;
 
             EyePosition = newEyePosition;
-            Console.WriteLine(AngleO);
-
-            if (AngleO < 180)
-                UpVector = new Vector3(0, 1, 0);
-            else
-                UpVector = new Vector3(0, -1, 0);
+            UpVector = new Vector3(0, sinO, 0);
         }
     }
 }

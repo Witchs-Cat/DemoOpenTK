@@ -1,0 +1,90 @@
+{
+  "objects": {
+    "lightObject": {
+      "mesh": "Assets\\Meshes\\HighPolyChamferBox.obj",
+      "materialIndex": 0
+    },
+    "heavyObject": {
+      "mesh": "Assets\\Meshes\\HighPolyChamferBox.obj",
+      "materialIndex": 1
+    },
+    "borderObject": {
+      "mesh": "Assets\\Meshes\\HighPolyBox.obj",
+      "materialIndex": 2
+    },
+    "player": {
+      "mesh": "Assets\\Meshes\\Sphere.obj",
+      "materialIndex": 3
+    },
+    "bomb": {
+      "mesh": "Assets\\Meshes\\Sphere.obj",
+      "materialIndex": 4
+    },
+    "monster": {
+      "mesh": "Assets\\Meshes\\Sphere.obj",
+      "materialIndex": 5
+    },
+    "Field": {
+      "mesh": "Assets\\Meshes\\SimplePlane.obj",
+      "materialIndex": 6
+    }
+  },
+  "materials": [
+    {
+      "diffuse": [ 1.0, 1.0, 0.6, 1.0 ],
+      "ambient": [ 0.4, 0.4, 0.2, 1.0 ],
+      "specular": [ 1.0, 1.0, 1.0, 1.0 ],
+      "emission": [ 0.0, 0.0, 0.0, 1.0 ],
+      "shininess": 64.0,
+      "face": "FrontAndBack"
+    },
+    {
+      "diffuse": [ 0.6, 0.6, 0.6, 1.0 ],
+      "ambient": [ 0.1, 0.1, 0.1, 1.0 ],
+      "specular": [ 0.0, 0.0, 0.0, 1.0 ],
+      "emission": [ 0.0, 0.0, 0.0, 1.0 ],
+      "shininess": 64.0,
+      "face": "FrontAndBack"
+    },
+    {
+      "diffuse": [ 0.3, 0.3, 0.3, 1.0 ],
+      "ambient": [ 0.1, 0.1, 0.1, 1.0 ],
+      "specular": [ 0.0, 0.0, 0.0, 1.0 ],
+      "emission": [ 0.0, 0.0, 0.0, 1.0 ],
+      "shininess": 64.0,
+      "face": "FrontAndBack"
+    },
+    {
+      "diffuse": [ 0.0, 0.6, 0.6, 1.0 ],
+      "ambient": [ 0.0, 0.0, 0.0, 1.0 ],
+      "specular": [ 0.0, 0.0, 0.0, 1.0 ],
+      "emission": [ 0.0, 0.6, 0.6, 1.0 ],
+      "shininess": 64.0,
+      "face": "FrontAndBack"
+    },
+    {
+      "diffuse": [ 0.2, 0.2, 0.2, 1.0 ],
+      "ambient": [ 0.0, 0.0, 0.0, 1.0 ],
+      "specular": [ 1.0, 1.0, 1.0, 1.0 ],
+      "emission": [ 0.0, 0.0, 0.0, 1.0 ],
+      "shininess": 64.0,
+      "face": "FrontAndBack"
+    },
+    {
+      "diffuse": [ 0.6, 0.1, 0.1, 1.0 ],
+      "ambient": [ 0.0, 0.0, 0.0, 1.0 ],
+      "specular": [ 0.0, 0.0, 0.0, 0.0 ],
+      "emission": [ 0.6, 0.1, 0.1, 1.0 ],
+      "shininess": 64.0,
+      "face": "FrontAndBack"
+    },
+    {
+      "diffuse": [ 0.2, 0.6, 0.2, 1.0 ],
+      "ambient": [ 0.35, 0.35, 0.35, 1.0 ],
+      "specular": [ 0.0, 0.0, 0.0, 1.0 ],
+      "emission": [ 0.0, 0.0, 0.0, 1.0 ],
+      "shininess": 64.0,
+      "face": "FrontAndBack"
+    }
+  ]
+}
