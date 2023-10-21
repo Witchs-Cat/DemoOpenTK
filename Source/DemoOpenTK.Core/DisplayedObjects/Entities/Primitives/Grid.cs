@@ -5,11 +5,12 @@ namespace DemoOpenTK
 {
     public class Grid : GeometryEntity
     {
-        public Grid()
+        public Grid(BaseMaterial material) : base(material)
         { }
 
         public override void OnRenderFrame(in FrameEventArgs args)
         {
+            Material.Apply();
             GL.Begin(PrimitiveType.Lines);
             {
                 GL.Color3(1.0f, 0.0f, 0.0f);

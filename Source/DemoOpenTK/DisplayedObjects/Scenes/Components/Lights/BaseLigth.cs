@@ -1,25 +1,30 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using Microsoft.Extensions.Logging;
+using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 
-namespace DemoOpenTK.DisplayedObjects.Lights
+namespace DemoOpenTK
 {
-    internal class BaseLight : IDisplayedObject
+    public class BaseLight : IDisplayedObject
     {
-        public BaseLight(LightName lightNumber) 
+        //Номер источника света
+        public readonly LightName LightNumber;
+        // позиция источника света
+        public Vector4 Position;
+        // фоновая составляющая источника света
+        public Vector4 Ambient;
+        // диффузная составляющая
+        public Vector4 Diffuse;
+        // зеркальная составляющая
+        public Vector4 Specular;
+
+        protected ILogger<BaseLight>? _logger;
+
+        public BaseLight(LightName lightNumber, ILogger<BaseLight>? logger = null)
         {
             LightNumber = lightNumber;
+            _logger = logger;
         }
-
-        public LightName LightNumber { get; }
-        // позиция источника света
-        public Vector4 Position { get; protected set; }
-        // фоновая составляющая источника света
-        public Vector4 Ambient { get; protected set; }
-        // диффузная составляющая
-        public Vector4 Diffuse { get; protected set; }
-        // зеркальная составляющая
-        public Vector4 Specular { get; protected set; }
 
         public virtual void OnRenderFrame(in FrameEventArgs args)
         {

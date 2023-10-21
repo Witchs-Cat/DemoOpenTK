@@ -5,10 +5,19 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace DemoOpenTK.DisplayedObjects.Materials
+namespace DemoOpenTK
 {
-    public class MaterialModel
+    public class MaterialDataModel
     {
+        public MaterialDataModel(float[] ambient, float[] diffuse, float[] specular, float[] emission, float shininess, string face)
+        {
+            Ambient = ambient;
+            Diffuse = diffuse;
+            Specular = specular;
+            Emission = emission;
+            Shininess = shininess;
+            Face = face;
+        }
         // фоновая составляющая
         [JsonPropertyName("ambient")]
         public float[] Ambient { get; set; }
@@ -27,14 +36,5 @@ namespace DemoOpenTK.DisplayedObjects.Materials
         [JsonPropertyName("face")]
         public string Face { get; set; }
 
-        public MaterialModel(float[] ambient, float[] diffuse, float[] specular, float[] emission, float shininess, string face)
-        {
-            Ambient = ambient;
-            Diffuse = diffuse;
-            Specular = specular;
-            Emission = emission;
-            Shininess = shininess;
-            Face = face;
-        }
     }
 }

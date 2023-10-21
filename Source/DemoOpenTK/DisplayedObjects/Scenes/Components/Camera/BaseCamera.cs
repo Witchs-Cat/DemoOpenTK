@@ -1,14 +1,15 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using Microsoft.Extensions.Logging;
+using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 
-namespace DemoOpenTK.DisplayedObjects.Camera
+namespace DemoOpenTK
 {
     public class BaseCamera : ICamera
     {
         private readonly float _fovy;
 
-        public BaseCamera() 
+        public BaseCamera()
             : this(new Vector3(0, 1, 1), Vector3.Zero, Vector3.UnitY)
         { }
 
@@ -18,12 +19,12 @@ namespace DemoOpenTK.DisplayedObjects.Camera
             TargetPosition = targetPosition;
             UpVector = upVector;
 
-            _fovy = (30.0f / 180.0f) * MathF.PI;
+            _fovy = 30.0f / 180.0f * MathF.PI;
         }
 
         public Vector3 EyePosition { get; protected set; }
         public Vector3 TargetPosition { get; protected set; }
-        public Vector3 UpVector{ get; protected set; }
+        public Vector3 UpVector { get; protected set; }
 
 
         public virtual void GetViewMatrix(out Matrix4 viewMatrix)
@@ -46,10 +47,10 @@ namespace DemoOpenTK.DisplayedObjects.Camera
             GL.LoadIdentity();
             GL.MatrixMode(MatrixMode.Projection);
             Matrix4.CreatePerspectiveFieldOfView(
-                fovy: _fovy, 
-                aspect: (float)args.Width / args.Height, 
-                depthNear: 0.2f,  
-                depthFar: 70.0f, 
+                fovy: _fovy,
+                aspect: (float)args.Width / args.Height,
+                depthNear: 0.2f,
+                depthFar: 70.0f,
                 result: out Matrix4 perspective);
 
             GL.LoadMatrix(ref perspective);

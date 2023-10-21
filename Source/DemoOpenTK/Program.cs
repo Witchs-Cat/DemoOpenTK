@@ -1,4 +1,5 @@
-﻿using OpenTK.Graphics.ES11;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
@@ -9,6 +10,11 @@ namespace DemoOpenTK
     {
         static void Main()
         {
+            ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
+                builder
+                .SetMinimumLevel(LogLevel.Debug)
+                .AddSimpleConsole(options => options.ColorBehavior = LoggerColorBehavior.Enabled));
+
             NativeWindowSettings nativeWinSettings = new()
             {
                 Size = new Vector2i(600, 450),
@@ -28,9 +34,9 @@ namespace DemoOpenTK
                 UpdateFrequency = 0,
             };
 
-            TestScene scene = new(gameWinSettings, nativeWinSettings);
-
-            scene.AddEntity(new Grid());
+            GraphicObjectsData graphicData = GraphicObjectsData.LoadFromJsonFile(@"Assets\GraphicObjectsData.json");
+            GameObjectsFactory gameObjectsFactory = new(graphicData);
+            GameScene scene = new(gameWinSettings, nativeWinSettings, gameObjectsFactory, loggerFactory);
 
             scene.Run();
         }
