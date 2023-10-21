@@ -65,27 +65,40 @@ namespace DemoOpenTK
 
         public Mesh Build()
         {
-            int size = _faces.Count * 3;
-            Vector3[] coordinates = new Vector3[size];
-            Vector3[] normals = new Vector3[size];
-            Vector2[] textures = new Vector2[size];
+            Dictionary<Vector3i, uint> faceVertexes = new();
+            LinkedList<uint> vertexIndexes = new();
 
-            uint index = 0;
+            int size = _faces.Count * 3;
+            LinkedList<Vector3> coordinates = new();
+            LinkedList<Vector3> normals = new();
+            LinkedList<Vector2> textures = new();
+
+            uint lastIndex = 0;
             foreach (Polygon polygon in _faces)
             {
                 for (int i = 0; i < 3; i++)
                 {
                     Vector3i currentVertex = polygon[i];
 
-                    coordinates[index] =  _coordinates.ElementAt(currentVertex[0] - 1);
-                    textures[index] = _textures.ElementAt(currentVertex[1] - 1).Xy;
-                    normals[index] = _normals.ElementAt(currentVertex[2] - 1);
-                    index++;
+                    if (faceVertexes.TryGetValue(currentVertex, out uint currentIndex))
+                    {
+                        vertexIndexes.AddLast(currentIndex);
+                    }
+                    else
+                    {
+                        vertexIndexes.AddLast(lastIndex);
+                        faceVertexes.Add(currentVertex, lastIndex);
+                        lastIndex++;
+
+                        coordinates.AddLast( _coordinates.ElementAt(currentVertex[0] - 1));
+                        textures.AddLast(_textures.ElementAt(currentVertex[1] - 1).Xy);
+                        normals.AddLast(_normals.ElementAt(currentVertex[2] - 1));
+                    }
                 } 
 
             }
 
-            return new Mesh(coordinates.ToArray(), normals.ToArray(), textures.ToArray());
+            return new Mesh(coordinates.ToArray(), normals.ToArray(), textures.ToArray(), vertexIndexes.ToArray());
         }
 
 
