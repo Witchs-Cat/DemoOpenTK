@@ -4,11 +4,11 @@ namespace DemoOpenTK
 {
     public interface IMovable
     {
+        MovedObjectState State { get; }
         /// <summary>
-        /// Объект выполнит ход
+        /// Перемещает объект на отрезок равный shift.
         /// </summary>
-        /// <param name="positon"></param>
-        /// <returns>Вернет true если ход возможен, инчае false</returns>
-        bool TryMove(Vector2i positon);
+        /// <returns>Возвращает true в случае успешного перемещения, елси перемещение невозможно вернет false</returns>
+        bool TryMove(Vector2i shift);
     }
 }

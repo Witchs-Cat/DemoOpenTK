@@ -6,17 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DemoOpenTK.DisplayedObjects.Scenes.Components.GameObjects
+namespace DemoOpenTK
 {
-    internal class LightObject : BaseGameObject, IMovable
+    internal class LightObject : MovedGameObject
     {
-        public LightObject(GraphicObject graphicObject, GameField field, ILogger<BaseGameObject>? logger = null) : base(graphicObject, field, logger)
+        public LightObject(GraphicObject graphicObject, GameField field, 
+            Vector2i position, ILogger<BaseGameObject>? logger = null) 
+            : base(graphicObject, field, position, logger)
         {
-        }
-
-        public bool TryMove(Vector2i positon)
-        {
-            throw new NotImplementedException();
         }
     }
 }

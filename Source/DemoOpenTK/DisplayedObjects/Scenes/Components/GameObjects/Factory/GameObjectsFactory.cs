@@ -1,12 +1,13 @@
 ﻿using Microsoft.Extensions.Logging;
+using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
+using System.Xml.Serialization;
 
 namespace DemoOpenTK    
 {
     public class GameObjectsFactory
     {
         private readonly LinkedList<BaseGameObject> _gameObjects;
-        private readonly LinkedList<Player> _players;
         private readonly LinkedList<GraphicObject> _graphicObjects;
         private readonly GraphicObjectsData _data;
 
@@ -16,7 +17,6 @@ namespace DemoOpenTK
         public GameObjectsFactory(GraphicObjectsData data, ILoggerFactory? loggerFactory = null)
         {
             _data = data;
-            _players = new LinkedList<Player>();
             _gameObjects = new LinkedList<BaseGameObject>();
             _graphicObjects = new LinkedList<GraphicObject>();
 
@@ -47,14 +47,49 @@ namespace DemoOpenTK
             }
         }
 
-        public BaseGameObject Create(GameField field, GameObjectType type,  float positionX, float positionZ, float positionY = 0.0f)
+        public void UpdateGameObjects(in FrameEventArgs args)
+        {
+            foreach (BaseGameObject entity in _gameObjects)
+            {
+                entity.OnUpdateFrame(in args);
+            }
+        }
+
+        public void OnUpdateFrame(in FrameEventArgs args)
+        {
+            UpdateGameObjects(in args);
+            UpdateGraphicObjects(in args);
+        }
+
+        public void OnRenderFrame(in FrameEventArgs args)
+        {
+            RenderGraphicObjects(in args);
+        }
+
+        public BaseGameObject Create(GameField field, GameObjectType type,  int positionX, int positionZ, float positionY = 0.0f)
         {
             if (!_data.Objects.TryGetValue(type, out GraphicObjectData? graphicData))
                 throw new ArgumentException(nameof(type));
 
             MeshGraphicObject graphicObject = new(graphicData.Material, graphicData.Mesh);
-            graphicObject.MoveTo(positionX - 10, positionY, positionZ - 10 );
-            BaseGameObject gameObject = new(graphicObject, field, _loggerFactory?.CreateLogger<BaseGameObject>());
+            Vector3 graphicPosition = new(positionX, positionY, positionZ);
+            graphicObject.MoveTo(graphicPosition);
+
+
+            BaseGameObject gameObject;
+            Vector2i position = new(positionX, positionZ);
+            switch (type)
+            {
+                case GameObjectType.Player: 
+                    gameObject = new Player(graphicObject, field, position, _loggerFactory?.CreateLogger<Player>());
+                    break;
+                case GameObjectType.LightObject:
+                    gameObject = new LightObject(graphicObject, field, position, _loggerFactory?.CreateLogger<LightObject>());
+                    break;
+                default:
+                    gameObject = new BaseGameObject(graphicObject, field, position, _loggerFactory?.CreateLogger<BaseGameObject>());
+                    break;
+            }
 
             _graphicObjects.AddLast(graphicObject);
             _gameObjects.AddLast(gameObject);
@@ -64,7 +99,7 @@ namespace DemoOpenTK
 
         public void OnKeyDown(KeyboardKeyEventArgs e)
         {
-            foreach (Player player in _players)
+            foreach (Player player in _gameObjects.Where(x => x is Player).Cast<Player>())
             {
                 player.OnKeyDown(e);
             }

@@ -14,7 +14,7 @@ namespace DemoOpenTK
         private readonly ILogger<GameScene>? _logger;
         private readonly GameObjectsFactory _gameObjectsFactory;
         private readonly GameField _gameField;
-        private BaseCamera _camera;
+        private MovingCamera _camera;
         private BaseLight _light;
         
         private double _lastFpsUpdate;
@@ -38,6 +38,7 @@ namespace DemoOpenTK
             _gameField = gameField;
             _gameObjectsFactory = gameObjectsFactory;
             _camera = new MovingCamera(KeyboardState, MouseState, radius: 40);
+            _camera.MoveTarget(new(10, 0, 10));
             _light = new BaseLight(LightName.Light0);
             _light.Position = new Vector4(30, 30, 20, 1.0f);
             _light.Diffuse = new Vector4(0.5f, 0.5f, 0.5f, 1.0f);
@@ -90,7 +91,7 @@ namespace DemoOpenTK
             _camera.OnUpdateFrame(args);
             _light.OnUpdateFrame(args);
 
-            _gameObjectsFactory.UpdateGraphicObjects(in args);
+            _gameObjectsFactory.OnUpdateFrame(in args);
             _logger?.LogTrace($"Обновление фрейма [elapsed = {args.Time} ms.]");
         }
 
@@ -104,9 +105,7 @@ namespace DemoOpenTK
 
             _camera.OnRenderFrame(args);
             _light.OnRenderFrame(args);
-
-
-            _gameObjectsFactory.RenderGraphicObjects(in args);
+            _gameObjectsFactory.OnRenderFrame(in args);
 
             SwapBuffers();
             _logger?.LogTrace($"Рендер фрейма [elapsed = {args.Time} ms.]");

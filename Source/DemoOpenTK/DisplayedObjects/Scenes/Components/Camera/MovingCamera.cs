@@ -88,6 +88,12 @@ namespace DemoOpenTK
             UpdateCameraPosition();
         }
 
+        public void MoveTarget(Vector3 newTargetPosition)
+        {
+            TargetPosition = newTargetPosition;
+            UpdateCameraPosition();
+        }
+
         private void UpdateCameraPosition()
         {
             float radF = AngleF / 180 * 3.14159f;

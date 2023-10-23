@@ -17,6 +17,7 @@ namespace DemoOpenTK
 
         public BaseMaterial Material { get; protected set; }
         public int Size { get; private set; }
+        public Vector3 Position => _modelMatrix.Row3.Xyz;
 
         public virtual void OnRenderFrame(in FrameEventArgs args)
         { }
@@ -29,11 +30,11 @@ namespace DemoOpenTK
             modelMatrix *= Size;
         }
 
-        public virtual void MoveTo(float x, float y, float z)
+        public virtual void MoveTo(Vector3 position)
         {
-            _modelMatrix.Row3.X = x;
-            _modelMatrix.Row3.Y = y;
-            _modelMatrix.Row3.Z = z;
+            _modelMatrix.Row3.X = position.X;
+            _modelMatrix.Row3.Y = position.Y;
+            _modelMatrix.Row3.Z = position.Z;
         }
     }
 }

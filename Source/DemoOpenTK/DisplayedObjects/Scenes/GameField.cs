@@ -28,8 +28,15 @@ namespace DemoOpenTK
                 if (objectType == GameObjectType.None)
                     continue;
                 gameObject = _gameObjectsFactory.Create(this, objectType, i % 21, i / 21);
+                _layout.Add(gameObject.Position, gameObject);
             }
             gameObject = _gameObjectsFactory.Create(this, GameObjectType.Field, 10, 10, -0.5f);
+        }
+
+        public void OnObjectMove(Vector2i newPosition, Vector2i prevPosition, BaseGameObject gameObject)
+        {
+            _layout.Remove(prevPosition);
+            _layout.Add(newPosition, gameObject);
         }
     }
 }
