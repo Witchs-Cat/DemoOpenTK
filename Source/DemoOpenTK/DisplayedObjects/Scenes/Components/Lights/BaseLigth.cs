@@ -2,6 +2,7 @@
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
+using System.Runtime.InteropServices;
 
 namespace DemoOpenTK
 {
@@ -40,6 +41,11 @@ namespace DemoOpenTK
 
         public virtual void Enable()
         {
+            // устанавливаем общую фоновую освещенность
+            float[] globalAmbientColor = { 0.2f, 0.2f, 0.2f, 1.0f };
+            GL.LightModel(LightModelParameter.LightModelAmbient, globalAmbientColor);
+
+            GL.Enable(EnableCap.Lighting);
             GL.Enable(Enum.Parse<EnableCap>(LightNumber.ToString()));
         }
     }

@@ -82,8 +82,8 @@ namespace DemoOpenTK
                 return;
 
             Radius += _mouse.ScrollDelta.Y;
-            AngleF += _mouse.Delta.X;
-            AngleO -= _mouse.Delta.Y;
+            AngleF += _mouse.Delta.X / 10;
+            AngleO -= _mouse.Delta.Y / 10;
 
             UpdateCameraPosition();
         }

@@ -1,23 +1,21 @@
-﻿
-using OpenTK.Graphics.OpenGL;
+﻿using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
 namespace DemoOpenTK
 {
-    public class Mesh
+    public class Mesh : IMesh
     {
-
         private readonly Vector3[] _coordinates;
         private readonly Vector3[] _normals;
         private readonly Vector2[] _textures;
         private readonly uint[] _vertexIndexes;
 
-        public Mesh(Vector3[] coordinates, Vector3[] normals,
-             Vector2[] materials, uint[] vertexIndexes)
+        public Mesh(Vector3[] coordinates, Vector2[] textures,
+             Vector3[] normals, uint[] vertexIndexes)
         {
             _coordinates = coordinates;
             _normals = normals;
-            _textures = materials;
+            _textures = textures;
             _vertexIndexes = vertexIndexes;
         }
 
@@ -38,5 +36,8 @@ namespace DemoOpenTK
             GL.DisableClientState(ArrayCap.NormalArray);
             GL.DisableClientState(ArrayCap.TextureCoordArray);
         }
+
+        public void Dispose()
+        { }
     }
 }

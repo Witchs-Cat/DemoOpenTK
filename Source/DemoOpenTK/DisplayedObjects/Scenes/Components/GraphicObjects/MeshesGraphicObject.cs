@@ -6,12 +6,12 @@ namespace DemoOpenTK
 {
     public class MeshGraphicObject : GraphicObject
     {
-        public MeshGraphicObject(BaseMaterial material, Mesh mesh) : base(material)
+        public MeshGraphicObject(BaseMaterial material, IMesh mesh) : base(material)
         {
             Mesh = mesh;
         }
 
-        public Mesh Mesh { get; }
+        public IMesh Mesh { get; }
 
         public override void OnRenderFrame(in FrameEventArgs args)
         {

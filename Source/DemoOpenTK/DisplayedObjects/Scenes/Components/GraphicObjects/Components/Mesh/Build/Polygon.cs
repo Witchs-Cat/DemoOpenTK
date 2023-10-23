@@ -26,5 +26,11 @@ namespace DemoOpenTK
                 throw new IndexOutOfRangeException();
             }
         }
+
+
+        public override string ToString()
+        {
+            return $"{Vertex0} / {Vertex1} / {Vertex2}";
+        }
     }
 }

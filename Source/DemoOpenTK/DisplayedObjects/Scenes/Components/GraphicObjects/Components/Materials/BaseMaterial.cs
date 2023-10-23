@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace DemoOpenTK
 {
-    public class BaseMaterial
+    public class BaseMaterial : IMaterial
     {
 
         public BaseMaterial(MaterialDataModel model)
@@ -17,17 +17,17 @@ namespace DemoOpenTK
             Face = Enum.Parse<MaterialFace>(model.Face);
         }
 
-        // фоновая составляющая
+        /// <inheritdoc />
         public Vector4 Ambient { get; protected set; }
-        // диффузная составляющая
+        /// <inheritdoc />
         public Vector4 Diffuse { get; protected set; }
-        // зеркальная составляющая
+        /// <inheritdoc />
         public Vector4 Specular { get; protected set; }
-        // самосвечение
+        /// <inheritdoc />
         public Vector4 Emission { get; protected set; }
-        // степень отполированности
+        /// <inheritdoc />
         public float Shininess { get; protected set; }
-
+        /// <inheritdoc />
         public MaterialFace Face { get; protected set; }
 
         public virtual void Apply()
