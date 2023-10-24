@@ -2,13 +2,13 @@
 {
     public class GraphicObjectData
     {
-        public GraphicObjectData( Mesh mesh, BaseMaterial material) 
+        public GraphicObjectData( IMesh mesh, BaseMaterial material) 
         {
             Mesh = mesh;
             Material = material;
         } 
 
-        public Mesh Mesh { get; }
+        public IMesh Mesh { get; }
         public BaseMaterial Material { get; }
     }
 }

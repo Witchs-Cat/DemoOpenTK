@@ -32,10 +32,10 @@ namespace DemoOpenTK
             viewMatrix = Matrix4.LookAt(EyePosition, TargetPosition, UpVector);
         }
 
-        public virtual void OnUpdateFrame(in FrameEventArgs args)
+        public virtual void OnUpdateFrame( FrameEventArgs args)
         { }
 
-        public virtual void OnRenderFrame(in FrameEventArgs args)
+        public virtual void OnRenderFrame( FrameEventArgs args)
         {
             GL.MatrixMode(MatrixMode.Modelview);
             GetViewMatrix(out Matrix4 viewMatrix);

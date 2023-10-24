@@ -15,7 +15,8 @@ namespace DemoOpenTK
         private readonly MouseState _mouse;
 
         public MovingCamera(KeyboardState keyboard, MouseState mouse,
-            float angleO = 0, float angleF = 0, float radius = 0)
+            float angleO = 0, float angleF = 0, float radius = 0) 
+            : base()
         {
             _keyboard = keyboard;
             _mouse = mouse;
@@ -76,15 +77,21 @@ namespace DemoOpenTK
             }
         }
 
-        public override void OnUpdateFrame(in FrameEventArgs args)
+        public override void OnUpdateFrame( FrameEventArgs args)
         {
             if (_mouse.ScrollDelta.Y == 0 && !_mouse.WasButtonDown(MouseButton.Left))
                 return;
 
             Radius += _mouse.ScrollDelta.Y;
-            AngleF += _mouse.Delta.X;
-            AngleO -= _mouse.Delta.Y;
+            AngleF += _mouse.Delta.X / 10;
+            AngleO -= _mouse.Delta.Y / 10;
 
+            UpdateCameraPosition();
+        }
+
+        public void MoveTarget(Vector3 newTargetPosition)
+        {
+            TargetPosition = newTargetPosition;
             UpdateCameraPosition();
         }
 

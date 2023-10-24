@@ -2,6 +2,7 @@
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
+using System.Runtime.InteropServices;
 
 namespace DemoOpenTK
 {
@@ -26,7 +27,7 @@ namespace DemoOpenTK
             _logger = logger;
         }
 
-        public virtual void OnRenderFrame(in FrameEventArgs args)
+        public virtual void OnRenderFrame( FrameEventArgs args)
         {
             GL.Light(LightNumber, LightParameter.Ambient, Ambient);
             GL.Light(LightNumber, LightParameter.Diffuse, Diffuse);
@@ -34,12 +35,17 @@ namespace DemoOpenTK
             GL.Light(LightNumber, LightParameter.Position, Position);
         }
 
-        public virtual void OnUpdateFrame(in FrameEventArgs args)
+        public virtual void OnUpdateFrame( FrameEventArgs args)
         {
         }
 
         public virtual void Enable()
         {
+            // устанавливаем общую фоновую освещенность
+            float[] globalAmbientColor = { 0.2f, 0.2f, 0.2f, 1.0f };
+            GL.LightModel(LightModelParameter.LightModelAmbient, globalAmbientColor);
+
+            GL.Enable(EnableCap.Lighting);
             GL.Enable(Enum.Parse<EnableCap>(LightNumber.ToString()));
         }
     }

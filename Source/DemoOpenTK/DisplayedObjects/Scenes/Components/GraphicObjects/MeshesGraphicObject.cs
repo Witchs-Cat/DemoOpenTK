@@ -6,14 +6,14 @@ namespace DemoOpenTK
 {
     public class MeshGraphicObject : GraphicObject
     {
-        public MeshGraphicObject(BaseMaterial material, Mesh mesh) : base(material)
+        public MeshGraphicObject(BaseMaterial material, IMesh mesh) : base(material)
         {
             Mesh = mesh;
         }
 
-        public Mesh Mesh { get; }
+        public IMesh Mesh { get; }
 
-        public override void OnRenderFrame(in FrameEventArgs args)
+        public override void OnRenderFrame( FrameEventArgs args)
         {
             GetModelMatrix(out Matrix4 modelMatrix);
             GL.PushMatrix();

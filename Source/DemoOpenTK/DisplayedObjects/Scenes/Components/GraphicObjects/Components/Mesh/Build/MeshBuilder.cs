@@ -1,21 +1,22 @@
 ﻿using Microsoft.Extensions.Logging;
+using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Security.Cryptography.X509Certificates;
+using System.Runtime.InteropServices;
 
 namespace DemoOpenTK
 {
     public class MeshBuilder
     {
+        private static readonly CultureInfo _culture = new CultureInfo("Ru-ru", true);
+        private static readonly NumberFormatInfo _numberFormat = _culture.NumberFormat;
+
         private readonly LinkedList<Vector3> _coordinates;
         private readonly LinkedList<Vector3> _normals;
         private readonly LinkedList<Vector3> _textures;
         private readonly LinkedList<Polygon> _faces;
 
-        private static readonly CultureInfo _culture = new CultureInfo("Ru-ru", true);
-        private static readonly NumberFormatInfo _numberFormat = _culture.NumberFormat;
+        private bool _useEBO;
 
         static MeshBuilder()
         {
@@ -28,7 +29,7 @@ namespace DemoOpenTK
             _normals = new LinkedList<Vector3>();
             _textures = new LinkedList<Vector3>(); 
             _faces = new LinkedList<Polygon>();
-
+            _useEBO = false;
         }
 
         public MeshBuilder LoadFromFile(string pathToFile)
@@ -57,21 +58,21 @@ namespace DemoOpenTK
                         _faces.AddLast(ParsePolygon(line[2..]));
                         break;
                 }
-
             }
-
             return this;
         }
 
-        public Mesh Build()
+        public MeshBuilder UseEBO(bool useEBO = true)
+        {
+            _useEBO = useEBO;
+            return this;
+        }
+
+        private void GetMeshParams(out IEnumerable<Vertex> vertexts, out IEnumerable<uint> indexses)
         {
             Dictionary<Vector3i, uint> faceVertexes = new();
             LinkedList<uint> vertexIndexes = new();
-
-            int size = _faces.Count * 3;
-            LinkedList<Vector3> coordinates = new();
-            LinkedList<Vector3> normals = new();
-            LinkedList<Vector2> textures = new();
+            LinkedList<Vertex> resultVertexes = new();
 
             uint lastIndex = 0;
             foreach (Polygon polygon in _faces)
@@ -90,15 +91,63 @@ namespace DemoOpenTK
                         faceVertexes.Add(currentVertex, lastIndex);
                         lastIndex++;
 
-                        coordinates.AddLast( _coordinates.ElementAt(currentVertex[0] - 1));
-                        textures.AddLast(_textures.ElementAt(currentVertex[1] - 1).Xy);
-                        normals.AddLast(_normals.ElementAt(currentVertex[2] - 1));
+                        Vector3 coordinate = _coordinates.ElementAt(currentVertex[0] - 1);
+                        Vector2 texture = _textures.ElementAt(currentVertex[1] - 1).Xy;
+                        Vector3 normal = _normals.ElementAt(currentVertex[2] - 1);
+
+                        Vertex vertex = new(coordinate, texture, normal);
+                        resultVertexes.AddLast(vertex);
                     }
-                } 
-
+                }
             }
+            vertexts = resultVertexes;
+            indexses = vertexIndexes;
+        }
 
-            return new Mesh(coordinates.ToArray(), normals.ToArray(), textures.ToArray(), vertexIndexes.ToArray());
+        private Mesh CreateMesh()
+        {
+            GetMeshParams(out IEnumerable<Vertex> vertexes, out IEnumerable<uint> indexes);
+            return new Mesh(vertexes.Select(x => x.Coordinate).ToArray(), 
+                vertexes.Select(x => x.Texture).ToArray(), 
+                vertexes.Select(x => x.Normal).ToArray(), 
+                indexes.ToArray());
+        }
+
+        private IMesh CreateEBOMesh()
+        {
+            int vertexBuffer = GL.GenBuffer();
+            int indexBuffer = GL.GenBuffer();
+
+            GetMeshParams(out IEnumerable<Vertex> vertexes, out IEnumerable<uint> indexes);
+
+            Vertex[] vertexArray = vertexes.ToArray();
+            uint[] indexArray = indexes.ToArray(); 
+            int indexCount = indexArray.Length;
+
+            BufferTarget bufferTarget = BufferTarget.ArrayBuffer;
+            BufferUsageHint bufferUsage = BufferUsageHint.StaticDraw;
+            int size = vertexArray.Length * Marshal.SizeOf<Vertex>();
+
+            GL.BindBuffer(bufferTarget, vertexBuffer);
+            GL.BufferData(bufferTarget, size, vertexArray, bufferUsage);
+            GL.BindBuffer(bufferTarget, 0);
+
+            bufferTarget = BufferTarget.ElementArrayBuffer;
+            size = indexArray.Length * Marshal.SizeOf<uint>();
+            
+            GL.BindBuffer(bufferTarget, indexBuffer);
+            GL.BufferData(bufferTarget, size, indexArray, bufferUsage);
+            GL.BindBuffer(bufferTarget, 0);
+
+            return new EBOMesh(vertexBuffer, indexBuffer, indexCount);
+        }
+
+        public IMesh Build()
+        {
+            if (_useEBO)
+                return CreateEBOMesh();
+            return CreateMesh();
+
         }
 
 
