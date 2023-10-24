@@ -10,18 +10,24 @@ namespace DemoOpenTK
         private readonly LinkedList<BaseGameObject> _gameObjects;
         private readonly LinkedList<GraphicObject> _graphicObjects;
         private readonly GraphicObjectsData _data;
+        private readonly GameScene _scene;
 
         private readonly ILoggerFactory? _loggerFactory;
         private readonly ILogger? _logger;
 
-        public GameObjectsFactory(GraphicObjectsData data, ILoggerFactory? loggerFactory = null)
+        public GameObjectsFactory(GameScene scene, GraphicObjectsData data, ILoggerFactory? loggerFactory = null)
         {
             _data = data;
+            _scene = scene;
             _gameObjects = new LinkedList<BaseGameObject>();
             _graphicObjects = new LinkedList<GraphicObject>();
 
             _loggerFactory = loggerFactory;
             _logger = _loggerFactory?.CreateLogger<GameObjectsFactory>();
+
+            _scene.Load += OnLoad;
+            _scene.RenderFrame += OnRenderFrame;
+            _scene.UpdateFrame += OnUpdateFrame;
         }
 
 
@@ -30,39 +36,39 @@ namespace DemoOpenTK
             _data.Load();
         }
 
-        public void RenderGraphicObjects(in FrameEventArgs args)
+        private void RenderGraphicObjects(FrameEventArgs args)
         {
             foreach (GraphicObject entity in _graphicObjects)
             {
-                entity.OnRenderFrame(in args);
+                entity.OnRenderFrame(args);
             }
         }
 
-        public void UpdateGraphicObjects(in FrameEventArgs args)
+        private void UpdateGraphicObjects(FrameEventArgs args)
         {
             foreach (GraphicObject entity in _graphicObjects)
             {
-                entity.OnUpdateFrame(in args);
+                entity.OnUpdateFrame(args);
             }
         }
 
-        public void UpdateGameObjects(in FrameEventArgs args)
+        private void UpdateGameObjects(FrameEventArgs args)
         {
-            foreach (BaseGameObject entity in _gameObjects)
+            foreach (BaseGameObject entity in _gameObjects.Where(x => x is MovedGameObject))
             {
-                entity.OnUpdateFrame(in args);
+                entity.OnUpdateFrame(args);
             }
         }
 
-        public void OnUpdateFrame(in FrameEventArgs args)
+        private void OnUpdateFrame(FrameEventArgs args)
         {
-            UpdateGameObjects(in args);
-            UpdateGraphicObjects(in args);
+            UpdateGameObjects(args);
+            //UpdateGraphicObjects(args);
         }
 
-        public void OnRenderFrame(in FrameEventArgs args)
+        private void OnRenderFrame(FrameEventArgs args)
         {
-            RenderGraphicObjects(in args);
+            RenderGraphicObjects(args);
         }
 
         public BaseGameObject Create(GameField field, GameObjectType type,  int positionX, int positionZ, float positionY = 0.0f)
@@ -77,16 +83,21 @@ namespace DemoOpenTK
 
             BaseGameObject gameObject;
             Vector2i position = new(positionX, positionZ);
+            GameObjectConfig config = new(_scene, graphicObject, field, position, null);
+
             switch (type)
             {
-                case GameObjectType.Player: 
-                    gameObject = new Player(graphicObject, field, position, _loggerFactory?.CreateLogger<Player>());
+                case GameObjectType.Player:
+                    config.Logger = _loggerFactory?.CreateLogger<Player>();
+                    gameObject = new Player(config);
                     break;
                 case GameObjectType.LightObject:
-                    gameObject = new LightObject(graphicObject, field, position, _loggerFactory?.CreateLogger<LightObject>());
+                    config.Logger = _loggerFactory?.CreateLogger<LightObject>();
+                    gameObject = new LightObject(config);
                     break;
                 default:
-                    gameObject = new BaseGameObject(graphicObject, field, position, _loggerFactory?.CreateLogger<BaseGameObject>());
+                    config.Logger = _loggerFactory?.CreateLogger<BaseGameObject>();
+                    gameObject = new BaseGameObject(config);
                     break;
             }
 
@@ -94,14 +105,6 @@ namespace DemoOpenTK
             _gameObjects.AddLast(gameObject);
 
             return gameObject;
-        }
-
-        public void OnKeyDown(KeyboardKeyEventArgs e)
-        {
-            //foreach (Player player in _gameObjects.Where(x => x is Player).Cast<Player>())
-            //{
-            //    player.OnKeyDown(e);
-            //}
         }
     }
 }

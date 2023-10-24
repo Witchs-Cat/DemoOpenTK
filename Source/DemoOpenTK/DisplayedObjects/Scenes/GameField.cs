@@ -6,17 +6,19 @@ namespace DemoOpenTK
 {
     public class GameField
     {
+        private readonly GameScene _scene;
         private readonly ImmutableArray<GameObjectType> _passabilityMap;
         private readonly IDictionary<Vector2i, BaseGameObject> _layout;
         private readonly GameObjectsFactory _gameObjectsFactory;
 
-        public KeyboardState? KeyboardState;
-
-        public GameField(GameObjectsFactory gameObjectsFactory,  ImmutableArray<GameObjectType> passabilityMap)
+        public GameField(GameScene scene, GameObjectsFactory gameObjectsFactory,  ImmutableArray<GameObjectType> passabilityMap)
         {
+            _scene = scene;
             _passabilityMap = passabilityMap;
             _gameObjectsFactory = gameObjectsFactory;
             _layout = new Dictionary<Vector2i, BaseGameObject>();
+
+            _scene.Load += Setup;
         }
 
         public ImmutableDictionary<Vector2i, BaseGameObject> Layout => _layout.ToImmutableDictionary();

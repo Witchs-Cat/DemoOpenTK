@@ -8,7 +8,7 @@ namespace DemoOpenTK
         public Grid(BaseMaterial material) : base(material)
         { }
 
-        public override void OnRenderFrame(in FrameEventArgs args)
+        public override void OnRenderFrame( FrameEventArgs args)
         {
             Material.Apply();
             GL.Begin(PrimitiveType.Lines);

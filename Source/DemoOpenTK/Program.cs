@@ -59,12 +59,13 @@ namespace DemoOpenTK
             {
                 UpdateFrequency = 0,
             };
+           
+            GameScene scene = new(gameWinSettings, nativeWinSettings, loggerFactory);
             
             GraphicObjectsData graphicData = new(@"Assets\GraphicObjectsData.json", loggerFactory);
-            GameObjectsFactory gameObjectsFactory = new(graphicData, loggerFactory);
-            GameField gameField = new(gameObjectsFactory, _passabilityMap);
+            GameObjectsFactory gameObjectsFactory = new(scene, graphicData, loggerFactory);
+            GameField gameField = new(scene, gameObjectsFactory, _passabilityMap);
 
-            GameScene scene = new(gameWinSettings, nativeWinSettings, gameObjectsFactory, gameField, loggerFactory);
             scene.Run();
         }
     }

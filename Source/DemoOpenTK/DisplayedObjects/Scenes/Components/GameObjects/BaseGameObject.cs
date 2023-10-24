@@ -1,28 +1,30 @@
 ﻿using Microsoft.Extensions.Logging;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace DemoOpenTK
 {
     public class BaseGameObject
     {
-        protected readonly ILogger? _logger;
 
         public readonly GraphicObject GraphicObject;
         public readonly GameField Field; 
         
-        public BaseGameObject(GraphicObject graphicObject, GameField field, Vector2i position, ILogger? logger = null)
+        public BaseGameObject(GameObjectConfig config)
         {
-            _logger = logger;
-
-            Position = position;
-            GraphicObject = graphicObject;
-            Field = field;
+            Scene = config.Scene;
+            Logger = config.Logger;
+            Position = config.Position;
+            GraphicObject = config.GraphicObject;
+            Field = config.Field;
         }
 
+        public GameScene Scene { get; }
         public Vector2i Position { get; protected set; }
+        public ILogger? Logger { get; }
 
-        public virtual void OnUpdateFrame(in FrameEventArgs args)
+        public virtual void OnUpdateFrame(FrameEventArgs args)
         { }
     }
 }

@@ -27,7 +27,7 @@ namespace DemoOpenTK
             _logger = logger;
         }
 
-        public virtual void OnRenderFrame(in FrameEventArgs args)
+        public virtual void OnRenderFrame( FrameEventArgs args)
         {
             GL.Light(LightNumber, LightParameter.Ambient, Ambient);
             GL.Light(LightNumber, LightParameter.Diffuse, Diffuse);
@@ -35,7 +35,7 @@ namespace DemoOpenTK
             GL.Light(LightNumber, LightParameter.Position, Position);
         }
 
-        public virtual void OnUpdateFrame(in FrameEventArgs args)
+        public virtual void OnUpdateFrame( FrameEventArgs args)
         {
         }
 

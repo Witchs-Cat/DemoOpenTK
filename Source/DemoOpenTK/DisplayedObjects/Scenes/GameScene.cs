@@ -8,14 +8,12 @@ using System.Collections.Immutable;
 
 namespace DemoOpenTK
 {
-    internal class GameScene : GameWindow
+    public class GameScene : GameWindow
     {
         private readonly ILoggerFactory? _loggerFactory;
         private readonly ILogger? _logger;
-        private readonly GameObjectsFactory _gameObjectsFactory;
-        private readonly GameField _gameField;
-        private MovingCamera _camera;
-        private BaseLight _light;
+        private readonly MovingCamera _camera;
+        private readonly BaseLight _light;
         
         private double _lastFpsUpdate;
         private ushort _framesCount;
@@ -24,8 +22,6 @@ namespace DemoOpenTK
 
         public GameScene(GameWindowSettings gameWindowSettings,
             NativeWindowSettings nativeWindowSettings,
-            GameObjectsFactory gameObjectsFactory, 
-            GameField gameField,
             ILoggerFactory? loggerFactory = null)
             : base(gameWindowSettings, nativeWindowSettings)
         {
@@ -34,9 +30,6 @@ namespace DemoOpenTK
 
             _loggerFactory = loggerFactory;
             _logger = loggerFactory?.CreateLogger<GameScene>();
-
-            _gameField = gameField;
-            _gameObjectsFactory = gameObjectsFactory;
 
             _camera = new MovingCamera(KeyboardState, MouseState, radius: 40);
             _camera.MoveTarget(new(10, 0, 10));
@@ -51,14 +44,10 @@ namespace DemoOpenTK
 
         protected override void OnLoad()
         {
-            //base.OnLoad();
             GL.Enable(EnableCap.DepthTest);
-            _light.Enable();
-            
-            _gameObjectsFactory.OnLoad();
-            _gameField.Setup();
-            _gameField.KeyboardState = KeyboardState;
+            base.OnLoad();
 
+            _light.Enable();
             _logger?.LogDebug("Приложение загруженно.");
 
             foreach (StringName value in Enum.GetValues<StringName>().SkipLast(2))
@@ -67,7 +56,7 @@ namespace DemoOpenTK
 
         protected override void OnResize(ResizeEventArgs e)
         {
-            //base.OnResize(e);
+            base.OnResize(e);
 
             GL.Viewport(0, 0, e.Width, e.Height);
 
@@ -89,32 +78,31 @@ namespace DemoOpenTK
                 Close();
             }
 
-            //base.OnUpdateFrame(args);
+            base.OnUpdateFrame(args);
 
             _camera.OnUpdateFrame(args);
             _light.OnUpdateFrame(args);
 
-            _gameObjectsFactory.OnUpdateFrame(in args);
             _logger?.LogTrace($"Обновление фрейма [elapsed = {args.Time} ms.]");
         }
 
         protected override void OnRenderFrame(FrameEventArgs args)
         {
-            //base.OnRenderFrame(args);
             GL.ClearColor(new Color4(0x00, 0x00, 0x00, 0xff));
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             CalculateFps(args);
 
+            base.OnRenderFrame(args);
+
             _camera.OnRenderFrame(args);
             _light.OnRenderFrame(args);
-            _gameObjectsFactory.OnRenderFrame(in args);
-
             SwapBuffers();
+            
             _logger?.LogTrace($"Рендер фрейма [elapsed = {args.Time} ms.]");
         }
 
-        private void CalculateFps(FrameEventArgs args)
+        private void CalculateFps( FrameEventArgs args)
         {
             _lastFpsUpdate += args.Time;
             _framesCount++;
@@ -125,12 +113,6 @@ namespace DemoOpenTK
                 _framesCount = 0;
                 _lastFpsUpdate = 0;
             }
-        }
-
-        protected override void OnKeyDown(KeyboardKeyEventArgs e)
-        {
-            //base.OnKeyDown(e);
-            _gameObjectsFactory.OnKeyDown(e);
         }
     }
 }

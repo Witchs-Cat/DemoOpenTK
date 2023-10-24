@@ -13,7 +13,7 @@ namespace DemoOpenTK
 
         public IMesh Mesh { get; }
 
-        public override void OnRenderFrame(in FrameEventArgs args)
+        public override void OnRenderFrame( FrameEventArgs args)
         {
             GetModelMatrix(out Matrix4 modelMatrix);
             GL.PushMatrix();

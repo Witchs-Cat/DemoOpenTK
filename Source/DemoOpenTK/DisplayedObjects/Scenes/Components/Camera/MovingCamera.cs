@@ -77,7 +77,7 @@ namespace DemoOpenTK
             }
         }
 
-        public override void OnUpdateFrame(in FrameEventArgs args)
+        public override void OnUpdateFrame( FrameEventArgs args)
         {
             if (_mouse.ScrollDelta.Y == 0 && !_mouse.WasButtonDown(MouseButton.Left))
                 return;

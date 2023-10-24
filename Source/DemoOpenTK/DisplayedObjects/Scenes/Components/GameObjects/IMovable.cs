@@ -4,7 +4,6 @@ namespace DemoOpenTK
 {
     public interface IMovable
     {
-        MovedObjectState State { get; }
         /// <summary>
         /// Перемещает объект на отрезок равный shift.
         /// </summary>
