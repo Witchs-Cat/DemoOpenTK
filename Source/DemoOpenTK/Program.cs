@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging.Console;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using System.Collections.Immutable;
 
 namespace DemoOpenTK
@@ -23,8 +24,8 @@ namespace DemoOpenTK
             3,2,2,2,2,0,2,2,2,0,2,0,2,2,2,2,2,2,2,0,3,
             3,0,0,0,2,0,0,0,1,0,2,0,0,0,2,0,0,0,0,0,3,
             3,0,2,0,2,2,2,0,2,1,2,0,2,2,2,0,2,2,2,2,3,
-            3,0,2,0,0,0,2,0,0,0,2,0,0,0,2,0,2,0,0,0,3,
-            3,2,2,2,2,0,2,2,2,0,2,2,2,0,1,0,2,2,2,0,3,
+            3,0,2,0,0,0,2,0,1,0,2,0,0,0,2,0,2,0,0,0,3,
+            3,2,2,2,2,0,2,2,2,0,2,2,2,0,0,0,2,2,2,0,3,
             3,0,0,0,0,0,2,0,2,0,0,0,2,0,1,0,0,0,2,0,3,
             3,0,2,0,2,1,2,0,2,0,2,2,2,0,2,2,2,0,2,0,3,
             3,0,1,0,1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,3,
@@ -59,8 +60,8 @@ namespace DemoOpenTK
                 UpdateFrequency = 0,
             };
             
-            GraphicObjectsData graphicData = new GraphicObjectsData(@"Assets\GraphicObjectsData.json", loggerFactory);
-            GameObjectsFactory gameObjectsFactory = new(graphicData);
+            GraphicObjectsData graphicData = new(@"Assets\GraphicObjectsData.json", loggerFactory);
+            GameObjectsFactory gameObjectsFactory = new(graphicData, loggerFactory);
             GameField gameField = new(gameObjectsFactory, _passabilityMap);
 
             GameScene scene = new(gameWinSettings, nativeWinSettings, gameObjectsFactory, gameField, loggerFactory);

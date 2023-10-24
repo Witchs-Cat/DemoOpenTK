@@ -11,7 +11,7 @@ namespace DemoOpenTK
     internal class LightObject : MovedGameObject
     {
         public LightObject(GraphicObject graphicObject, GameField field, 
-            Vector2i position, ILogger<BaseGameObject>? logger = null) 
+            Vector2i position, ILogger? logger = null) 
             : base(graphicObject, field, position, logger)
         {
         }

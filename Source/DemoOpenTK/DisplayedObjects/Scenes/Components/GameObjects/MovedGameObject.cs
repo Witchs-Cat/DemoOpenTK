@@ -10,7 +10,7 @@ namespace DemoOpenTK
         protected Vector3 _animationEndPosition;
 
         public MovedGameObject(GraphicObject graphicObject, GameField field, 
-            Vector2i position, ILogger<BaseGameObject>? logger = null) 
+            Vector2i position, ILogger? logger = null) 
             : base(graphicObject, field, position, logger)
         {
 

@@ -7,40 +7,42 @@ namespace DemoOpenTK
 {
     public class Player : MovedGameObject
     {
-        public Player(GraphicObject graphicObject, GameField field, Vector2i position, ILogger<BaseGameObject>? logger = null) 
+        public Player(GraphicObject graphicObject, GameField field, Vector2i position, ILogger? logger = null) 
             : base(graphicObject, field, position, logger)
         {
         }
 
-        public void OnKeyDown(KeyboardKeyEventArgs args)
+        public override void OnUpdateFrame(in FrameEventArgs args)
         {
-            if (State == MovedObjectState.Animated)
-                return;
-
-            Keys selectedKeys = args.Key;
-
-            if (selectedKeys.HasFlag(Keys.W))
+            base.OnUpdateFrame(args);
+            
+            if (Field.KeyboardState.IsKeyDown(Keys.W))
             {
                 TryMove(new Vector2i(-1,0));
             }
-            else if (selectedKeys.HasFlag(Keys.S))
+            if (Field.KeyboardState.IsKeyDown(Keys.S))
             {
                 TryMove(new Vector2i(1, 0));
             }
-            else if (selectedKeys.HasFlag(Keys.D))
+            if (Field.KeyboardState.IsKeyDown(Keys.D))
             {
                 TryMove(new Vector2i(0, -1));
             }
-            else if (selectedKeys.HasFlag(Keys.A))
+            if (Field.KeyboardState.IsKeyDown(Keys.A))
             {
                 TryMove(new Vector2i(0, 1));
             }
+
         }
 
+        ///<inheritdoc/>
         public override bool TryMove(Vector2i shift)
         {
             if (State != MovedObjectState.Inactive)
+            {
                 return false;
+            }
+
 
             Vector2i newPostion = Position + shift;
             if (Field.Layout.TryGetValue(newPostion, out BaseGameObject? obstacle))
@@ -58,8 +60,10 @@ namespace DemoOpenTK
             Vector3 graphicPosition = GraphicObject.Position;
             _animationCurrentPosition = graphicPosition;
             _animationEndPosition = new Vector3(newPostion.X, graphicPosition.Y, newPostion.Y);
+
             State = MovedObjectState.Animated;
 
+            _logger?.LogDebug($"Player moveTo {newPostion}");
             return true;
 
         }

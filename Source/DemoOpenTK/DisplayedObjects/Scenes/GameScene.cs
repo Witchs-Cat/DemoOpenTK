@@ -11,7 +11,7 @@ namespace DemoOpenTK
     internal class GameScene : GameWindow
     {
         private readonly ILoggerFactory? _loggerFactory;
-        private readonly ILogger<GameScene>? _logger;
+        private readonly ILogger? _logger;
         private readonly GameObjectsFactory _gameObjectsFactory;
         private readonly GameField _gameField;
         private MovingCamera _camera;
@@ -37,8 +37,10 @@ namespace DemoOpenTK
 
             _gameField = gameField;
             _gameObjectsFactory = gameObjectsFactory;
+
             _camera = new MovingCamera(KeyboardState, MouseState, radius: 40);
             _camera.MoveTarget(new(10, 0, 10));
+
             _light = new BaseLight(LightName.Light0);
             _light.Position = new Vector4(30, 30, 20, 1.0f);
             _light.Diffuse = new Vector4(0.5f, 0.5f, 0.5f, 1.0f);
@@ -55,7 +57,8 @@ namespace DemoOpenTK
             
             _gameObjectsFactory.OnLoad();
             _gameField.Setup();
-            
+            _gameField.KeyboardState = KeyboardState;
+
             _logger?.LogDebug("Приложение загруженно.");
 
             foreach (StringName value in Enum.GetValues<StringName>().SkipLast(2))

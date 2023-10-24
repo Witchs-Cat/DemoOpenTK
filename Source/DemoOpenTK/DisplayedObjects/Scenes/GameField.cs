@@ -1,4 +1,5 @@
 ﻿using OpenTK.Mathematics;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using System.Collections.Immutable;
 
 namespace DemoOpenTK
@@ -8,6 +9,8 @@ namespace DemoOpenTK
         private readonly ImmutableArray<GameObjectType> _passabilityMap;
         private readonly IDictionary<Vector2i, BaseGameObject> _layout;
         private readonly GameObjectsFactory _gameObjectsFactory;
+
+        public KeyboardState? KeyboardState;
 
         public GameField(GameObjectsFactory gameObjectsFactory,  ImmutableArray<GameObjectType> passabilityMap)
         {

@@ -12,7 +12,7 @@ namespace DemoOpenTK
         private readonly GraphicObjectsData _data;
 
         private readonly ILoggerFactory? _loggerFactory;
-        private readonly ILogger<GameObjectsFactory>? _logger;
+        private readonly ILogger? _logger;
 
         public GameObjectsFactory(GraphicObjectsData data, ILoggerFactory? loggerFactory = null)
         {
@@ -37,7 +37,6 @@ namespace DemoOpenTK
                 entity.OnRenderFrame(in args);
             }
         }
-
 
         public void UpdateGraphicObjects(in FrameEventArgs args)
         {
@@ -69,7 +68,7 @@ namespace DemoOpenTK
         public BaseGameObject Create(GameField field, GameObjectType type,  int positionX, int positionZ, float positionY = 0.0f)
         {
             if (!_data.Objects.TryGetValue(type, out GraphicObjectData? graphicData))
-                throw new ArgumentException(nameof(type));
+                throw new ArgumentException(null, nameof(type));
 
             MeshGraphicObject graphicObject = new(graphicData.Material, graphicData.Mesh);
             Vector3 graphicPosition = new(positionX, positionY, positionZ);
@@ -99,10 +98,10 @@ namespace DemoOpenTK
 
         public void OnKeyDown(KeyboardKeyEventArgs e)
         {
-            foreach (Player player in _gameObjects.Where(x => x is Player).Cast<Player>())
-            {
-                player.OnKeyDown(e);
-            }
+            //foreach (Player player in _gameObjects.Where(x => x is Player).Cast<Player>())
+            //{
+            //    player.OnKeyDown(e);
+            //}
         }
     }
 }

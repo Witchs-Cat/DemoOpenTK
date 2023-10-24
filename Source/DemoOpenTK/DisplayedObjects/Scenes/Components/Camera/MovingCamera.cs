@@ -15,7 +15,8 @@ namespace DemoOpenTK
         private readonly MouseState _mouse;
 
         public MovingCamera(KeyboardState keyboard, MouseState mouse,
-            float angleO = 0, float angleF = 0, float radius = 0)
+            float angleO = 0, float angleF = 0, float radius = 0) 
+            : base()
         {
             _keyboard = keyboard;
             _mouse = mouse;
