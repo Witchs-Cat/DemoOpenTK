@@ -26,5 +26,10 @@ namespace DemoOpenTK
 
         public virtual void OnUpdateFrame(FrameEventArgs args)
         { }
+
+        public void Remove()
+        {
+            Field.Remove(this);
+        }
     }
 }

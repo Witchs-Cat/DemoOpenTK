@@ -53,13 +53,15 @@ namespace DemoOpenTK
 
             gameObject = _gameObjectsFactory.Create(this, GameObjectType.Player, freeCell.X, freeCell.Y);
             _layout.Add(freeCell, gameObject);
-
+            occupiedCells[freeCell.X, freeCell.Y] = true;
             for (int i = 0; i < 3; i++)
             {
                 if (!TryFindRandomFreeCell(occupiedCells, out freeCell))
                     return;
 
                 gameObject = _gameObjectsFactory.Create(this, GameObjectType.Monster, freeCell.X, freeCell.Y);
+                _layout.Add(freeCell, gameObject);
+                occupiedCells[freeCell.X, freeCell.Y] = true;
             }
         }
 
@@ -113,6 +115,12 @@ namespace DemoOpenTK
         {
             _layout.Remove(prevPosition);
             _layout.Add(newPosition, gameObject);
+        }
+
+        public void Remove(BaseGameObject gameObject)
+        {
+            _layout.Remove(gameObject.Position);
+            _gameObjectsFactory.AddToDeleteQueue(gameObject);
         }
     }
 }

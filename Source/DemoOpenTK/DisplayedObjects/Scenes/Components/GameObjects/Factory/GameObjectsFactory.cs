@@ -7,6 +7,8 @@ namespace DemoOpenTK
 {
     public class GameObjectsFactory
     {
+        private readonly Queue<BaseGameObject> _deleteQueue;
+
         private readonly LinkedList<BaseGameObject> _gameObjects;
         private readonly LinkedList<BaseGraphicObject> _graphicObjects;
         private readonly GraphicObjectsData _data;
@@ -21,9 +23,11 @@ namespace DemoOpenTK
             _scene = scene;
             _gameObjects = new LinkedList<BaseGameObject>();
             _graphicObjects = new LinkedList<BaseGraphicObject>();
+            _deleteQueue = new Queue<BaseGameObject>();
 
             _loggerFactory = loggerFactory;
             _logger = _loggerFactory?.CreateLogger<GameObjectsFactory>();
+
 
             _scene.Load += OnLoad;
             _scene.RenderFrame += OnRenderFrame;
@@ -54,7 +58,7 @@ namespace DemoOpenTK
 
         private void UpdateGameObjects(FrameEventArgs args)
         {
-            foreach (BaseGameObject entity in _gameObjects.Where(x => x is MovedGameObject))
+            foreach (BaseGameObject entity in _gameObjects.Where(x => x is AnimatedGameObject))
             {
                 entity.OnUpdateFrame(args);
             }
@@ -63,12 +67,29 @@ namespace DemoOpenTK
         private void OnUpdateFrame(FrameEventArgs args)
         {
             UpdateGameObjects(args);
+
+            while (_deleteQueue.Any())
+            {
+                BaseGameObject gameObject = _deleteQueue.Dequeue();
+                Delete(gameObject);
+            }
             //UpdateGraphicObjects(args);
         }
 
         private void OnRenderFrame(FrameEventArgs args)
         {
             RenderGraphicObjects(args);
+        }
+
+        public void AddToDeleteQueue(BaseGameObject gameObject)
+        {
+            _deleteQueue.Enqueue(gameObject);
+        }
+
+        private void Delete(BaseGameObject gameObject)
+        {
+            _graphicObjects.Remove(gameObject.GraphicObject);
+            _gameObjects.Remove(gameObject);
         }
 
         public BaseGameObject Create(GameField field, GameObjectType type,  int positionX, int positionZ, float positionY = 0.0f)
@@ -100,6 +121,10 @@ namespace DemoOpenTK
                 case GameObjectType.LightObject:
                     config.Logger = _loggerFactory?.CreateLogger<LightObject>();
                     gameObject = new LightObject(config);
+                    break;
+                case GameObjectType.Monster:
+                    config.Logger = _loggerFactory?.CreateLogger<Monster>();
+                    gameObject = new Monster(config);
                     break;
                 default:
                     config.Logger = _loggerFactory?.CreateLogger<BaseGameObject>();

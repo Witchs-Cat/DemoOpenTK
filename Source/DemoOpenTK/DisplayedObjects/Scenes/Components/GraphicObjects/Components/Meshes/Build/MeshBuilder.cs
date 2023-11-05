@@ -8,8 +8,6 @@ namespace DemoOpenTK
 {
     public class MeshBuilder
     {
-        private static readonly CultureInfo _culture = new CultureInfo("Ru-ru", true);
-        private static readonly NumberFormatInfo _numberFormat = _culture.NumberFormat;
 
         private readonly LinkedList<Vector3> _coordinates;
         private readonly LinkedList<Vector3> _normals;
@@ -18,8 +16,12 @@ namespace DemoOpenTK
 
         private bool _useEBO;
 
+        private static readonly CultureInfo _culture;
+        private static readonly NumberFormatInfo _numberFormat;
         static MeshBuilder()
         {
+            _culture = new CultureInfo("Ru-ru", true);
+            _numberFormat = _culture.NumberFormat;
             _numberFormat.NumberDecimalSeparator = ".";
         }
 

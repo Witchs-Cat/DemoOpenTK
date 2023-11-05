@@ -1,23 +1,19 @@
 ﻿using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DemoOpenTK.DisplayedObjects.Scenes.Components.GameObjects.Animations
+namespace DemoOpenTK
 {
     public class MoveAnimation : IAnimation
     {
         private Vector3 _currentPosition;
         private Vector3 _endPosition;
 
-        public MoveAnimation(BaseGraphicObject graphicObject)
+        public MoveAnimation(BaseGraphicObject graphicObject, Vector3 currentPositon, Vector3 endPosition)
         {
-            _currentPosition = Vector3.Zero;
-            _endPosition = Vector3.Zero;
+            _currentPosition = currentPositon;
+            _endPosition = endPosition;
 
+            State = AnimationState.Played;
             GraphicObject = graphicObject;
         }
         
@@ -47,23 +43,6 @@ namespace DemoOpenTK.DisplayedObjects.Scenes.Components.GameObjects.Animations
 
             if (_currentPosition == _endPosition)
                 State = AnimationState.Inactive;
-        }
-
-        public void Play()
-        {
-            State = AnimationState.Played;
-        }
-
-        public void Play(in Vector3 startPosition, in Vector3 endPositin)
-        {
-            _currentPosition = startPosition;
-            _endPosition = endPositin;
-            State = AnimationState.Played;
-        }
-
-        public void Stop()
-        {
-            State = AnimationState.Stoped;
         }
     }
 }
