@@ -8,7 +8,7 @@ namespace DemoOpenTK
     public class GameObjectsFactory
     {
         private readonly LinkedList<BaseGameObject> _gameObjects;
-        private readonly LinkedList<GraphicObject> _graphicObjects;
+        private readonly LinkedList<BaseGraphicObject> _graphicObjects;
         private readonly GraphicObjectsData _data;
         private readonly GameScene _scene;
 
@@ -20,7 +20,7 @@ namespace DemoOpenTK
             _data = data;
             _scene = scene;
             _gameObjects = new LinkedList<BaseGameObject>();
-            _graphicObjects = new LinkedList<GraphicObject>();
+            _graphicObjects = new LinkedList<BaseGraphicObject>();
 
             _loggerFactory = loggerFactory;
             _logger = _loggerFactory?.CreateLogger<GameObjectsFactory>();
@@ -38,7 +38,7 @@ namespace DemoOpenTK
 
         private void RenderGraphicObjects(FrameEventArgs args)
         {
-            foreach (GraphicObject entity in _graphicObjects)
+            foreach (BaseGraphicObject entity in _graphicObjects)
             {
                 entity.OnRenderFrame(args);
             }
@@ -46,7 +46,7 @@ namespace DemoOpenTK
 
         private void UpdateGraphicObjects(FrameEventArgs args)
         {
-            foreach (GraphicObject entity in _graphicObjects)
+            foreach (BaseGraphicObject entity in _graphicObjects)
             {
                 entity.OnUpdateFrame(args);
             }
@@ -76,7 +76,13 @@ namespace DemoOpenTK
             if (!_data.Objects.TryGetValue(type, out GraphicObjectData? graphicData))
                 throw new ArgumentException(null, nameof(type));
 
-            MeshGraphicObject graphicObject = new(graphicData.Material, graphicData.Mesh);
+            BaseGraphicObject graphicObject;
+
+            if (graphicData.Texture == null)
+                graphicObject = new MeshGraphicObject(graphicData.Material, graphicData.Mesh);
+            else
+                graphicObject = new TextureGraphicObject(graphicData.Material, graphicData.Mesh, graphicData.Texture, _data.TexturesFilter);
+
             Vector3 graphicPosition = new(positionX, positionY, positionZ);
             graphicObject.MoveTo(graphicPosition);
 

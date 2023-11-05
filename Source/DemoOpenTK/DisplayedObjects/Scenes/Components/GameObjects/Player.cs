@@ -20,13 +20,13 @@ namespace DemoOpenTK
             if (Animation.State != AnimationState.Inactive)
                 return;
 
-            if (_keyboardState.IsKeyDown(Keys.W))
+            if (_keyboardState.WasKeyDown(Keys.W))
                 TryMove(new Vector2i(-1,0));
-            if (_keyboardState.IsKeyDown(Keys.S))
+            if (_keyboardState.WasKeyDown(Keys.S))
                 TryMove(new Vector2i(1, 0));
-            if (_keyboardState.IsKeyDown(Keys.D))
+            if (_keyboardState.WasKeyDown(Keys.D))
                 TryMove(new Vector2i(0, -1));
-            if (_keyboardState.IsKeyDown(Keys.A))
+            if (_keyboardState.WasKeyDown(Keys.A))
                 TryMove(new Vector2i(0, 1));
         }
 
@@ -52,7 +52,7 @@ namespace DemoOpenTK
             Vector3 graphicPosition = GraphicObject.Position;
             Animation.Play( graphicPosition, new Vector3(newPostion.X, graphicPosition.Y, newPostion.Y));
 
-            Logger?.LogDebug($"Player moveTo {newPostion}");
+            Logger?.LogDebug($"Игрок переместился на позицию {newPostion}");
             return true;
 
         }

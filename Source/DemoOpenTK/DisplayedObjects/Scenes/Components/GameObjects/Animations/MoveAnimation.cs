@@ -13,7 +13,7 @@ namespace DemoOpenTK.DisplayedObjects.Scenes.Components.GameObjects.Animations
         private Vector3 _currentPosition;
         private Vector3 _endPosition;
 
-        public MoveAnimation(GraphicObject graphicObject)
+        public MoveAnimation(BaseGraphicObject graphicObject)
         {
             _currentPosition = Vector3.Zero;
             _endPosition = Vector3.Zero;
@@ -21,7 +21,7 @@ namespace DemoOpenTK.DisplayedObjects.Scenes.Components.GameObjects.Animations
             GraphicObject = graphicObject;
         }
         
-        public GraphicObject GraphicObject { get; }
+        public BaseGraphicObject GraphicObject { get; }
         public AnimationState State { get; private set; }
         
         public void OnUpdateFrame(FrameEventArgs args)

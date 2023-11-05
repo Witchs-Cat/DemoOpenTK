@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DemoOpenTK
 {
-    public enum GameObjectType
+    public enum GameObjectType : byte
     {
         None,
         LightObject,

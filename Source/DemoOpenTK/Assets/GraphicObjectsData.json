@@ -1,34 +1,44 @@
 {
+  "filterType": "Point",
+  
   "objects": {
     "lightObject": {
       "mesh": "Assets\\Meshes\\HighPolyChamferBox.obj",
+      "texture": "",
       "materialIndex": 0
     },
     "heavyObject": {
       "mesh": "Assets\\Meshes\\HighPolyChamferBox.obj",
+      "texture": "",
       "materialIndex": 1
     },
     "borderObject": {
       "mesh": "Assets\\Meshes\\HighPolyBox.obj",
+      "texture": "",
       "materialIndex": 2
     },
     "player": {
       "mesh": "Assets\\Meshes\\Sphere.obj",
+      "texture": "",
       "materialIndex": 3
     },
     "bomb": {
       "mesh": "Assets\\Meshes\\Sphere.obj",
+      "texture": "",
       "materialIndex": 4
     },
     "monster": {
       "mesh": "Assets\\Meshes\\Sphere.obj",
+      "texture": "",
       "materialIndex": 5
     },
     "Field": {
       "mesh": "Assets\\Meshes\\SimplePlane.obj",
+      "texture": "Assets\\Textures\\plane.jpg",
       "materialIndex": 6
     }
   },
+
   "materials": [
     {
       "diffuse": [ 1.0, 1.0, 0.6, 1.0 ],
@@ -79,8 +89,8 @@
       "face": "FrontAndBack"
     },
     {
-      "diffuse": [ 0.6, 0.6, 0.6, 1.0 ],
-      "ambient": [ 0.35, 0.35, 0.35, 1.0 ],
+      "diffuse": [ 0.8, 0.8, 0.8, 1.0 ],
+      "ambient": [ 1.0, 1.0, 1.0, 1.0 ],
       "specular": [ 0.0, 0.0, 0.0, 1.0 ],
       "emission": [ 0.0, 0.0, 0.0, 1.0 ],
       "shininess": 64.0,

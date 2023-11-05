@@ -3,7 +3,7 @@ using OpenTK.Windowing.Common;
 
 namespace DemoOpenTK
 {
-    public class Grid : GraphicObject
+    public class Grid : BaseGraphicObject
     {
         public Grid(BaseMaterial material) : base(material)
         { }
