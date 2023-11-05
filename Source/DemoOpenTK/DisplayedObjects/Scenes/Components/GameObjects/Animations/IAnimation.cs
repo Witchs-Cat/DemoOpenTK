@@ -1,13 +1,11 @@
 ﻿using OpenTK.Windowing.Common;
 
-namespace DemoOpenTK.DisplayedObjects.Scenes.Components.GameObjects.Animations
+namespace DemoOpenTK
 {
-    internal interface IAnimation
+    public interface IAnimation
     {
         AnimationState State { get; }
 
         void OnUpdateFrame( FrameEventArgs args);
-        void Play();
-        void Stop();
     }
 }

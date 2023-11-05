@@ -10,7 +10,7 @@ namespace DemoOpenTK
 {
     public class GameObjectConfig
     {
-        public GameObjectConfig(GameScene scene, GraphicObject graphicObject, GameField field, Vector2i position, ILogger? logger = null)
+        public GameObjectConfig(GameScene scene, BaseGraphicObject graphicObject, GameField field, Vector2i position, ILogger? logger = null)
         {
             Scene = scene;
             GraphicObject = graphicObject;
@@ -20,7 +20,7 @@ namespace DemoOpenTK
         }
 
         public GameScene Scene { get; set; }
-        public GraphicObject GraphicObject { get; set; }
+        public BaseGraphicObject GraphicObject { get; set; }
         public GameField Field { get; set; }
         public Vector2i Position { get; set; }
         public ILogger? Logger { get; set; }

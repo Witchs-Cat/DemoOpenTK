@@ -7,8 +7,10 @@ namespace DemoOpenTK
 {
     public class GameObjectsFactory
     {
+        private readonly Queue<BaseGameObject> _deleteQueue;
+
         private readonly LinkedList<BaseGameObject> _gameObjects;
-        private readonly LinkedList<GraphicObject> _graphicObjects;
+        private readonly LinkedList<BaseGraphicObject> _graphicObjects;
         private readonly GraphicObjectsData _data;
         private readonly GameScene _scene;
 
@@ -20,10 +22,12 @@ namespace DemoOpenTK
             _data = data;
             _scene = scene;
             _gameObjects = new LinkedList<BaseGameObject>();
-            _graphicObjects = new LinkedList<GraphicObject>();
+            _graphicObjects = new LinkedList<BaseGraphicObject>();
+            _deleteQueue = new Queue<BaseGameObject>();
 
             _loggerFactory = loggerFactory;
             _logger = _loggerFactory?.CreateLogger<GameObjectsFactory>();
+
 
             _scene.Load += OnLoad;
             _scene.RenderFrame += OnRenderFrame;
@@ -38,7 +42,7 @@ namespace DemoOpenTK
 
         private void RenderGraphicObjects(FrameEventArgs args)
         {
-            foreach (GraphicObject entity in _graphicObjects)
+            foreach (BaseGraphicObject entity in _graphicObjects)
             {
                 entity.OnRenderFrame(args);
             }
@@ -46,7 +50,7 @@ namespace DemoOpenTK
 
         private void UpdateGraphicObjects(FrameEventArgs args)
         {
-            foreach (GraphicObject entity in _graphicObjects)
+            foreach (BaseGraphicObject entity in _graphicObjects)
             {
                 entity.OnUpdateFrame(args);
             }
@@ -54,7 +58,7 @@ namespace DemoOpenTK
 
         private void UpdateGameObjects(FrameEventArgs args)
         {
-            foreach (BaseGameObject entity in _gameObjects.Where(x => x is MovedGameObject))
+            foreach (BaseGameObject entity in _gameObjects.Where(x => x is AnimatedGameObject))
             {
                 entity.OnUpdateFrame(args);
             }
@@ -63,6 +67,12 @@ namespace DemoOpenTK
         private void OnUpdateFrame(FrameEventArgs args)
         {
             UpdateGameObjects(args);
+
+            while (_deleteQueue.Any())
+            {
+                BaseGameObject gameObject = _deleteQueue.Dequeue();
+                Delete(gameObject);
+            }
             //UpdateGraphicObjects(args);
         }
 
@@ -71,12 +81,29 @@ namespace DemoOpenTK
             RenderGraphicObjects(args);
         }
 
+        public void AddToDeleteQueue(BaseGameObject gameObject)
+        {
+            _deleteQueue.Enqueue(gameObject);
+        }
+
+        private void Delete(BaseGameObject gameObject)
+        {
+            _graphicObjects.Remove(gameObject.GraphicObject);
+            _gameObjects.Remove(gameObject);
+        }
+
         public BaseGameObject Create(GameField field, GameObjectType type,  int positionX, int positionZ, float positionY = 0.0f)
         {
             if (!_data.Objects.TryGetValue(type, out GraphicObjectData? graphicData))
                 throw new ArgumentException(null, nameof(type));
 
-            MeshGraphicObject graphicObject = new(graphicData.Material, graphicData.Mesh);
+            BaseGraphicObject graphicObject;
+
+            if (graphicData.Texture == null)
+                graphicObject = new MeshGraphicObject(graphicData.Material, graphicData.Mesh);
+            else
+                graphicObject = new TextureGraphicObject(graphicData.Material, graphicData.Mesh, graphicData.Texture, _data.TexturesFilter);
+
             Vector3 graphicPosition = new(positionX, positionY, positionZ);
             graphicObject.MoveTo(graphicPosition);
 
@@ -94,6 +121,10 @@ namespace DemoOpenTK
                 case GameObjectType.LightObject:
                     config.Logger = _loggerFactory?.CreateLogger<LightObject>();
                     gameObject = new LightObject(config);
+                    break;
+                case GameObjectType.Monster:
+                    config.Logger = _loggerFactory?.CreateLogger<Monster>();
+                    gameObject = new Monster(config);
                     break;
                 default:
                     config.Logger = _loggerFactory?.CreateLogger<BaseGameObject>();

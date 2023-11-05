@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using OpenTK.Audio.OpenAL;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Runtime.Serialization;
@@ -17,9 +18,11 @@ namespace DemoOpenTK
             _pathToFile = pathToFile;
             _loggerFactory = loggerFactory;
             _logger = loggerFactory?.CreateLogger<GraphicObjectsData>();
+            TexturesFilter = new PointTextureFilter();
             Objects = ImmutableDictionary<GameObjectType, GraphicObjectData>.Empty;
         }
        
+        public ITextureFilter TexturesFilter { get; private set; }
         public IImmutableDictionary<GameObjectType, GraphicObjectData> Objects { get; private set; }
 
         public void Load()
@@ -42,6 +45,8 @@ namespace DemoOpenTK
             Dictionary<GameObjectType, GraphicObjectData> objects = new();
             BaseMaterial[] materials = new BaseMaterial[model.Materials.Count()];
 
+            TextureFilterType filterType = Enum.Parse<TextureFilterType>(model.TexturesFilterType);
+
             int index = 0;
             foreach (MaterialDataModel materialData in model.Materials)
             {
@@ -55,17 +60,34 @@ namespace DemoOpenTK
                 GameObjectType objectType = Enum.Parse<GameObjectType>(objectTypeData.Key, true);
                 GraphicObjectDataModel objectModel = objectTypeData.Value;
 
-                MeshBuilder builder = new MeshBuilder(_loggerFactory?.CreateLogger<MeshBuilder>());
+                MeshBuilder builder = new (_loggerFactory?.CreateLogger<MeshBuilder>());
                 builder
                     .UseEBO()
                     .LoadFromFile(objectModel.PathToMesh);
 
                 BaseMaterial material = materials[objectModel.MaterialIndex];
+                BaseTexture? texture  = null;
 
-                GraphicObjectData objectData = new(builder.Build(), material);
+                if(!string.IsNullOrEmpty(objectModel.PathToTexture))
+                    texture = BaseTexture.LoadFromImgFile(objectModel.PathToTexture);
+
+                GraphicObjectData objectData = new(builder.Build(), material, texture);
                 objects.Add(objectType, objectData);
             }
             Objects = objects.ToImmutableDictionary();
+            TexturesFilter = CreateTexturesFilter(filterType);
+        }
+
+        private static ITextureFilter CreateTexturesFilter(TextureFilterType filterType)
+        {
+            return filterType switch
+            {
+                TextureFilterType.Point => new PointTextureFilter(),
+                TextureFilterType.Bilinear => new BilinearTextureFilter(),
+                TextureFilterType.Trilinear => new TrilinearTextureFilter(),
+                TextureFilterType.Anisotropic => new AnisotropicTextureFilter(),
+                _ => throw new ArgumentException(null, nameof(filterType))
+            } ;
         }
     }
 }

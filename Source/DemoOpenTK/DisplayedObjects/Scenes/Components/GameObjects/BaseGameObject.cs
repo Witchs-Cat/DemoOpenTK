@@ -8,7 +8,7 @@ namespace DemoOpenTK
     public class BaseGameObject
     {
 
-        public readonly GraphicObject GraphicObject;
+        public readonly BaseGraphicObject GraphicObject;
         public readonly GameField Field; 
         
         public BaseGameObject(GameObjectConfig config)
@@ -26,5 +26,10 @@ namespace DemoOpenTK
 
         public virtual void OnUpdateFrame(FrameEventArgs args)
         { }
+
+        public void Remove()
+        {
+            Field.Remove(this);
+        }
     }
 }

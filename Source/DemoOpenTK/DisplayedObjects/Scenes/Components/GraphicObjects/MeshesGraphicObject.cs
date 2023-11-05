@@ -4,7 +4,7 @@ using OpenTK.Windowing.Common;
 
 namespace DemoOpenTK
 {
-    public class MeshGraphicObject : GraphicObject
+    public class MeshGraphicObject : BaseGraphicObject
     {
         public MeshGraphicObject(BaseMaterial material, IMesh mesh) : base(material)
         {

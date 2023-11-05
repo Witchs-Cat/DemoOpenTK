@@ -62,11 +62,11 @@ namespace DemoOpenTK
 
             _camera.OnResize(e);
 
-            double elapsed = TimeSinceLastUpdate();
-            ResetTimeSinceLastUpdate();
+            //double elapsed = TimeSinceLastUpdate();
+            //ResetTimeSinceLastUpdate();
 
-            OnUpdateFrame(new FrameEventArgs(elapsed));
-            OnRenderFrame(new FrameEventArgs(elapsed));
+            //OnUpdateFrame(new FrameEventArgs(elapsed));
+            //OnRenderFrame(new FrameEventArgs(elapsed));
 
             _logger?.LogTrace($"Изменен размер окна ({e.Width}, {e.Height})");
         }

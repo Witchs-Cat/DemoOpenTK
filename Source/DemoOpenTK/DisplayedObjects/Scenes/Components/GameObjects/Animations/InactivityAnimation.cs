@@ -1,0 +1,26 @@
+﻿using OpenTK.Windowing.Common;
+
+namespace DemoOpenTK
+{
+    public class InactivityAnimation : IAnimation
+    {
+        private double _remainingLifeTime;
+
+        public InactivityAnimation(BaseGraphicObject graphicObject, double liveTimeSeconds) 
+        {
+            State = AnimationState.Played;
+            _remainingLifeTime = liveTimeSeconds;
+        }
+
+        public AnimationState State { get; private set; }
+        
+        public void OnUpdateFrame(FrameEventArgs args)
+        {
+            _remainingLifeTime -= args.Time;
+            
+            if (_remainingLifeTime < 0)
+                State = AnimationState.Inactive;
+
+        }
+    }
+}

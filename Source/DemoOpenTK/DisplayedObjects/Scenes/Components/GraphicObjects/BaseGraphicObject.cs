@@ -3,11 +3,11 @@ using OpenTK.Windowing.Common;
 
 namespace DemoOpenTK
 {
-    public abstract class GraphicObject : IDisplayedObject
+    public abstract class BaseGraphicObject : IDisplayedObject
     {
         private Matrix4 _modelMatrix;
 
-        public GraphicObject(BaseMaterial material)
+        public BaseGraphicObject(BaseMaterial material)
         {
             _modelMatrix = Matrix4.Identity;
 
