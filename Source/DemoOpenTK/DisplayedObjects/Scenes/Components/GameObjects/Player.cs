@@ -2,15 +2,24 @@
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using System.Transactions;
 
 namespace DemoOpenTK
 {
     public class Player : AnimatedGameObject
     {
         private readonly KeyboardState _keyboardState;
+        private readonly List<BaseGameObject> _bombs;
+        private readonly int _bombsLimit;
+
+        private bool _setBomb;
+
         public Player(GameObjectConfig config): base(config)
         {
             _keyboardState = Scene.KeyboardState;
+            _bombs = new();
+            _bombsLimit = 3;
+            _setBomb = false;
         }
 
         public override void OnUpdateFrame( FrameEventArgs args)
@@ -19,6 +28,9 @@ namespace DemoOpenTK
 
             if (AnimationsQueue.Any())
                 return;
+
+            if (_keyboardState.WasKeyDown(Keys.Space))
+                _setBomb = true && _bombs.Count < _bombsLimit;
 
             if (_keyboardState.WasKeyDown(Keys.W))
                 TryMove(new Vector2i(-1,0));
@@ -34,22 +46,44 @@ namespace DemoOpenTK
         private bool TryMove(Vector2i shift)
         {
             Vector2i newPostion = Position + shift;
-            if (Field.Layout.TryGetValue(newPostion, out BaseGameObject? obstacle))
+            Vector2i prevPosition = Position;
+
+            if (Field.TryGetObstacle(newPostion, out BaseGameObject? obstacle))
             {
+                if ( obstacle is Bomb bomb)
+                {
+                    bomb.Boom();
+                    return true;
+                }
+
                 if (obstacle is not IMovable movedObstacle)
                     return false;
 
                 if (!movedObstacle.TryMove(shift))
                     return false;
             }
-
-            Field.OnObjectMove(newPostion, Position, this);
+   
             Position = newPostion;
 
             Vector3 graphicPosition = GraphicObject.Position;
             MoveAnimation moveAnimation = new(this.GraphicObject, graphicPosition, new Vector3(newPostion.X, graphicPosition.Y, newPostion.Y));
             AnimationsQueue.Enqueue(moveAnimation);
-            Logger?.LogDebug($"Игрок переместился на позицию {newPostion}");
+
+            if (_setBomb)
+            {
+                Bomb bomb = Field.SetBomb(prevPosition);
+                bomb.Detonated += () => _bombs.Remove(bomb);
+                bomb.StartTimer(3);
+                _bombs.Add(bomb);
+                _setBomb = false;
+            }
+
+            return true;
+        }
+
+        public override bool TryRemove()
+        {
+            Field.Remove(this);
             return true;
         }
     }

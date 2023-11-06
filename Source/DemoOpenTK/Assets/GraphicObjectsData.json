@@ -3,18 +3,18 @@
   
   "objects": {
     "lightObject": {
-      "mesh": "Assets\\Meshes\\HighPolyChamferBox.obj",
-      "texture": "",
+      "mesh": "Assets\\Meshes\\HighPolyBox.obj",
+      "texture": "Assets\\Textures\\light_object.png",
       "materialIndex": 0
     },
     "heavyObject": {
-      "mesh": "Assets\\Meshes\\HighPolyChamferBox.obj",
-      "texture": "",
+      "mesh": "Assets\\Meshes\\HighPolyBox.obj",
+      "texture": "Assets\\Textures\\heavy_object.png",
       "materialIndex": 1
     },
     "borderObject": {
       "mesh": "Assets\\Meshes\\HighPolyBox.obj",
-      "texture": "",
+      "texture": "Assets\\Textures\\border_object.png",
       "materialIndex": 2
     },
     "player": {

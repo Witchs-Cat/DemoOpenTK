@@ -14,15 +14,20 @@ namespace DemoOpenTK
                 return false;
 
             Vector2i newPostion = Position + shift;
-            if (Field.Layout.ContainsKey(newPostion))
+            if (Field.CellIsOccupied(newPostion))
                 return false;
 
-            Field.OnObjectMove(newPostion, Position, this);
             Position = newPostion;
 
             Vector3 graphicPosition = GraphicObject.Position;
             MoveAnimation animation = new(this.GraphicObject, graphicPosition, new Vector3(newPostion.X, graphicPosition.Y, newPostion.Y));
             AnimationsQueue.Enqueue(animation);
+            return true;
+        }
+
+        public override bool TryRemove()
+        {
+            Field.Remove(this);
             return true;
         }
     }

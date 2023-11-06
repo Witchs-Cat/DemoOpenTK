@@ -1,12 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DemoOpenTK
 {
@@ -49,21 +42,33 @@ namespace DemoOpenTK
         private bool TryMove(Vector2i shift)
         {
             Vector2i newPostion = Position + shift;
-            if (Field.Layout.TryGetValue(newPostion, out BaseGameObject? obstacle))
+
+            if (Field.TryGetObstacle(newPostion, out BaseGameObject? obstacle))
             {
+                if (obstacle is Bomb bomb)
+                {
+                    bomb.Boom();
+                    return true;
+                }
+
                 if (obstacle is not Player player)
                     return false;
-
-                player.Remove();
+                player.TryRemove();
             }
 
-            Field.OnObjectMove(newPostion, Position, this);
             Position = newPostion;
-
             Vector3 graphicPosition = GraphicObject.Position;
             MoveAnimation moveAnimation = new(this.GraphicObject, graphicPosition, new Vector3(newPostion.X, graphicPosition.Y, newPostion.Y));
+           
             AnimationsQueue.Enqueue(moveAnimation);
-            Logger?.LogDebug($"Монстр переместился на позицию {newPostion}");
+
+            return true;
+        }
+
+
+        public override bool TryRemove()
+        {
+            Field.Remove(this);
             return true;
         }
     }

@@ -14,9 +14,9 @@ namespace DemoOpenTK
         /// </summary>
         Inactive,
         /// <summary>
-        /// Анимация была остановлена
+        /// Анимация была завершена
         /// </summary>
-        Stoped,
+        Complitied,
         /// <summary>
         /// Проигрывается анимация
         /// </summary>
