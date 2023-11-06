@@ -42,6 +42,7 @@ namespace DemoOpenTK
 
                 if (!movedObstacle.TryMove(shift))
                     return false;
+
             }
 
             Position = newPostion;
