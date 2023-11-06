@@ -21,6 +21,7 @@ namespace DemoOpenTK
         public BaseGraphicObject GraphicObject { get; }
         public AnimationState State { get; private set; }
 
+        public event Action? EndAnimation;
 
         public void OnUpdateFrame(FrameEventArgs args)
         {
@@ -43,7 +44,10 @@ namespace DemoOpenTK
             GraphicObject.MoveTo(_currentPosition);
 
             if (_currentPosition == _endPosition)
+            {
                 State = AnimationState.Complitied;
+                EndAnimation?.Invoke();
+            }
         }
     }
 }

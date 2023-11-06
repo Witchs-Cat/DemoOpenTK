@@ -40,6 +40,20 @@ namespace DemoOpenTK
             return _obstacles.ContainsKey(newPosition);
         }
 
+        public void Remove(BaseGameObject gameObject)
+        {
+            _obstacles.Remove(gameObject.Position);
+            _gameObjectsFactory.AddToDeleteQueue(gameObject);
+        }
+
+        public Bomb SetBomb(Vector2i prevPosition)
+        {
+            Bomb bomb = _gameObjectsFactory.Create(this, GameObjectType.Bomb, prevPosition.X, prevPosition.Y) as Bomb 
+                ?? throw new NullReferenceException();
+            _obstacles.Add(prevPosition, bomb);
+            return bomb;
+        }
+
         public void Setup()
         {
             int size = (int)MathF.Sqrt(_passabilityMap.Length);
@@ -56,12 +70,6 @@ namespace DemoOpenTK
             _obstacles.Add(gameObject.Position, gameObject);    
 
             ObjectMove?.Invoke(gameObject);
-        }
-
-        public void Remove(BaseGameObject gameObject)
-        {
-            _obstacles.Remove(gameObject.Position);
-            _gameObjectsFactory.AddToDeleteQueue(gameObject);
         }
 
         private void PlaceObstacles(bool[,] occupiedCells, int size)

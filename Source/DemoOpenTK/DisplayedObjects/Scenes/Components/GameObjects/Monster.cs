@@ -45,9 +45,15 @@ namespace DemoOpenTK
 
             if (Field.TryGetObstacle(newPostion, out BaseGameObject? obstacle))
             {
+                if (obstacle is Bomb bomb)
+                {
+                    bomb.Boom();
+                    return true;
+                }
+
                 if (obstacle is not Player player)
                     return false;
-                player.Remove();
+                player.TryRemove();
             }
 
             Position = newPostion;
@@ -56,6 +62,13 @@ namespace DemoOpenTK
            
             AnimationsQueue.Enqueue(moveAnimation);
 
+            return true;
+        }
+
+
+        public override bool TryRemove()
+        {
+            Field.Remove(this);
             return true;
         }
     }

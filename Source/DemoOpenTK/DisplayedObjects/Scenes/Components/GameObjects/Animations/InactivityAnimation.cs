@@ -14,6 +14,7 @@ namespace DemoOpenTK
 
         public AnimationState State { get; private set; }
 
+        public event Action? EndAnimation;
 
         public void OnUpdateFrame(FrameEventArgs args)
         {
@@ -21,9 +22,12 @@ namespace DemoOpenTK
                 return;
 
             _remainingLifeTime -= args.Time;
-            
+
             if (_remainingLifeTime < 0)
+            { 
                 State = AnimationState.Complitied;
+                EndAnimation?.Invoke();
+            }
         }
     }
 }
