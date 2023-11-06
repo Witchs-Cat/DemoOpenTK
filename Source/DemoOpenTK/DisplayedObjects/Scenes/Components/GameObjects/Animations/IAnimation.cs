@@ -1,4 +1,5 @@
 ﻿using OpenTK.Windowing.Common;
+using System.Runtime.CompilerServices;
 
 namespace DemoOpenTK
 {

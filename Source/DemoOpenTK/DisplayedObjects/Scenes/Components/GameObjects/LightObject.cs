@@ -14,10 +14,9 @@ namespace DemoOpenTK
                 return false;
 
             Vector2i newPostion = Position + shift;
-            if (Field.Layout.ContainsKey(newPostion))
+            if (Field.CellIsOccupied(newPostion))
                 return false;
 
-            Field.OnObjectMove(newPostion, Position, this);
             Position = newPostion;
 
             Vector3 graphicPosition = GraphicObject.Position;

@@ -13,14 +13,17 @@ namespace DemoOpenTK
         }
 
         public AnimationState State { get; private set; }
-        
+
+
         public void OnUpdateFrame(FrameEventArgs args)
         {
+            if (State != AnimationState.Played)
+                return;
+
             _remainingLifeTime -= args.Time;
             
             if (_remainingLifeTime < 0)
-                State = AnimationState.Inactive;
-
+                State = AnimationState.Complitied;
         }
     }
 }

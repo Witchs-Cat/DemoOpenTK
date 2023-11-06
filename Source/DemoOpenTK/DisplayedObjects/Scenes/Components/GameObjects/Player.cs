@@ -8,6 +8,7 @@ namespace DemoOpenTK
     public class Player : AnimatedGameObject
     {
         private readonly KeyboardState _keyboardState;
+
         public Player(GameObjectConfig config): base(config)
         {
             _keyboardState = Scene.KeyboardState;
@@ -34,7 +35,7 @@ namespace DemoOpenTK
         private bool TryMove(Vector2i shift)
         {
             Vector2i newPostion = Position + shift;
-            if (Field.Layout.TryGetValue(newPostion, out BaseGameObject? obstacle))
+            if (Field.TryGetObstacle(newPostion, out BaseGameObject? obstacle))
             {
                 if (obstacle is not IMovable movedObstacle)
                     return false;
@@ -43,13 +44,12 @@ namespace DemoOpenTK
                     return false;
             }
 
-            Field.OnObjectMove(newPostion, Position, this);
             Position = newPostion;
 
             Vector3 graphicPosition = GraphicObject.Position;
             MoveAnimation moveAnimation = new(this.GraphicObject, graphicPosition, new Vector3(newPostion.X, graphicPosition.Y, newPostion.Y));
+
             AnimationsQueue.Enqueue(moveAnimation);
-            Logger?.LogDebug($"Игрок переместился на позицию {newPostion}");
             return true;
         }
     }
