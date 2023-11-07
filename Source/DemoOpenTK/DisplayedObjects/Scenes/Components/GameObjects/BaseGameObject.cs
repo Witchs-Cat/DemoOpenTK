@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
-using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace DemoOpenTK
 {
@@ -31,7 +30,7 @@ namespace DemoOpenTK
                 Vector2i prevPosition = _position;
                 _position = value;
                 Field.OnObjectMove(prevPosition, this);
-                Logger?.LogDebug($"Новая позиция {value}");
+                Logger?.LogTrace($"Новая позиция {value}");
             }
         }
 

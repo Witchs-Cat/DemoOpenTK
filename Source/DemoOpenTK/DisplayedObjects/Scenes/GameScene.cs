@@ -44,12 +44,20 @@ namespace DemoOpenTK
 
         protected override void OnLoad()
         {
+            // включаем тест глубины
             GL.Enable(EnableCap.DepthTest);
-            base.OnLoad();
+            // включаем режим цветового наложения
+            GL.Enable(EnableCap.Blend);
+            // устанавливаем факторы источника и приемника
+            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+            // устанавливаем используемую операцию
+            GL.BlendEquation(BlendEquationMode.FuncAdd);
 
             _light.Enable();
-            _logger?.LogDebug("Приложение загруженно.");
+            
+            base.OnLoad();
 
+            _logger?.LogDebug("Приложение загруженно.");
             foreach (StringName value in Enum.GetValues<StringName>().SkipLast(2))
                 _logger?.LogDebug($"{value} = {GL.GetString(value)}");
         }
