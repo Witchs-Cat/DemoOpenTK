@@ -1,23 +1,21 @@
-﻿using Microsoft.Extensions.Logging;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using System.Transactions;
 
 namespace DemoOpenTK
 {
     public class Player : AnimatedGameObject
     {
         private readonly KeyboardState _keyboardState;
-        private readonly List<BaseGameObject> _bombs;
         private readonly int _bombsLimit;
+        private BaseGameObject? _bomb;
 
         private bool _setBomb;
 
         public Player(GameObjectConfig config): base(config)
         {
             _keyboardState = Scene.KeyboardState;
-            _bombs = new();
+            _bomb = null;
             _bombsLimit = 3;
             _setBomb = false;
         }
@@ -25,12 +23,12 @@ namespace DemoOpenTK
         public override void OnUpdateFrame( FrameEventArgs args)
         {
             base.OnUpdateFrame(args);
+            
+            if (_keyboardState.WasKeyDown(Keys.Space))
+                _setBomb = true && _bomb == null;
 
             if (AnimationsQueue.Any())
                 return;
-
-            if (_keyboardState.WasKeyDown(Keys.Space))
-                _setBomb = true && _bombs.Count < _bombsLimit;
 
             if (_keyboardState.WasKeyDown(Keys.W))
                 TryMove(new Vector2i(-1,0));
@@ -72,9 +70,9 @@ namespace DemoOpenTK
             if (_setBomb)
             {
                 Bomb bomb = Field.SetBomb(prevPosition);
-                bomb.Detonated += () => _bombs.Remove(bomb);
-                bomb.StartTimer(3);
-                _bombs.Add(bomb);
+                bomb.Detonated += () => _bomb = null;
+                bomb.StartTimer(1.5);
+                _bomb = bomb;
                 _setBomb = false;
             }
 

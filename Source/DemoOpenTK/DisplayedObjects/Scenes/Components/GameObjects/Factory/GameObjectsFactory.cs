@@ -13,63 +13,49 @@ namespace DemoOpenTK
 
         private readonly LinkedList<BaseGameObject> _gameObjects;
 
-        private readonly GraphicObjectsData _data;
+        private readonly GraphicObjectsFactory _graphicFactory;
         private readonly GameScene _scene;
 
         private readonly ILoggerFactory? _loggerFactory;
         private readonly ILogger? _logger;
 
-        public GameObjectsFactory(GameScene scene, GraphicObjectsData data, ILoggerFactory? loggerFactory = null)
+        public GameObjectsFactory(GameScene scene, GraphicObjectsFactory graphicFactory, ILoggerFactory? loggerFactory = null)
         {
-            _data = data;
-            _scene = scene;
             _addQueue = new();
             _gameObjects = new();
             _deleteQueue = new();
 
+            _graphicFactory = graphicFactory;
+            _scene = scene;
+
+
             _loggerFactory = loggerFactory;
             _logger = _loggerFactory?.CreateLogger<GameObjectsFactory>();
 
-
-            _scene.Load += OnLoad;
-            _scene.RenderFrame += OnRenderFrame;
             _scene.UpdateFrame += OnUpdateFrame;
         }
 
-
-        public void OnLoad()
-        {
-            _data.Load();
-        }
-
+        public GraphicObjectsFactory GraphicFactory => _graphicFactory;
 
         private void UpdateGameObjects(FrameEventArgs args)
         {
             foreach (BaseGameObject entity in _gameObjects.Where(x => x is AnimatedGameObject))
             {
                 entity.OnUpdateFrame(args);
-                entity.GraphicObject.OnUpdateFrame(args);
+                entity.GraphicObject.OnRenderFrame(args);
             }
         }
 
         private void OnUpdateFrame(FrameEventArgs args)
         {
-            UpdateGameObjects(args);
-            //UpdateGraphicObjects(args);
-
             while (_deleteQueue.Any())
                _gameObjects.Remove(_deleteQueue.Dequeue());
 
             while (_addQueue.Any())
                 _gameObjects.AddLast(_addQueue.Dequeue());
-        }
 
-        private void OnRenderFrame(FrameEventArgs args)
-        {
-            foreach (BaseGameObject entity in _gameObjects)
-            {
-                entity.GraphicObject.OnRenderFrame(args);
-            }
+            UpdateGameObjects(args);
+            //UpdateGraphicObjects(args);
         }
 
         public void AddToDeleteQueue(BaseGameObject gameObject)
@@ -78,20 +64,8 @@ namespace DemoOpenTK
         }
 
         public BaseGameObject Create(GameField field, GameObjectType type,  int positionX, int positionZ, float positionY = 0.0f)
-        {
-            if (!_data.Objects.TryGetValue(type, out GraphicObjectData? graphicData))
-                throw new ArgumentException(null, nameof(type));
-
-            BaseGraphicObject graphicObject;
-
-            if (graphicData.Texture == null)
-                graphicObject = new MeshGraphicObject(graphicData.Material, graphicData.Mesh);
-            else
-                graphicObject = new TextureGraphicObject(graphicData.Material, graphicData.Mesh, graphicData.Texture, _data.TexturesFilter);
-
-            Vector3 graphicPosition = new(positionX, positionY, positionZ);
-            graphicObject.MoveTo(graphicPosition);
-
+        { 
+            BaseGraphicObject graphicObject = _graphicFactory.Create((GraphicObjectType)type, positionX, positionY, positionZ);
 
             BaseGameObject gameObject;
             Vector2i position = new(positionX, positionZ);
@@ -120,6 +94,7 @@ namespace DemoOpenTK
                     gameObject = new BaseGameObject(config);
                     break;
             }
+
             _addQueue.Enqueue(gameObject);
 
             return gameObject;

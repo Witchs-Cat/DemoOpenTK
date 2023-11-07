@@ -1,6 +1,6 @@
 {
   "filterType": "Point",
-  
+
   "objects": {
     "lightObject": {
       "mesh": "Assets\\Meshes\\HighPolyBox.obj",
@@ -35,6 +35,11 @@
     "Field": {
       "mesh": "Assets\\Meshes\\SimplePlane.obj",
       "texture": "Assets\\Textures\\plane.jpg",
+      "materialIndex": 6
+    },
+    "BombHoleDecal": {
+      "mesh": "Assets\\Meshes\\Decal.obj",
+      "texture": "Assets\\Textures\\decal.png",
       "materialIndex": 6
     }
   },
@@ -89,8 +94,8 @@
       "face": "FrontAndBack"
     },
     {
-      "diffuse": [ 0.8, 0.8, 0.8, 1.0 ],
-      "ambient": [ 1.0, 1.0, 1.0, 1.0 ],
+      "diffuse": [ 0.4, 0.4, 0.4, 1.0 ],
+      "ambient": [ 0.48, 1.0, 0.34, 1.0 ],
       "specular": [ 0.0, 0.0, 0.0, 1.0 ],
       "emission": [ 0.0, 0.0, 0.0, 1.0 ],
       "shininess": 64.0,
