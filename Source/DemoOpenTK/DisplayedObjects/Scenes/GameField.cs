@@ -1,4 +1,5 @@
-﻿using OpenTK.Mathematics;
+﻿using DemoOpenTK.DisplayedObjects.Scenes.Components.GraphicObjects;
+using OpenTK.Mathematics;
 using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 using System.Xml;
@@ -11,11 +12,15 @@ namespace DemoOpenTK
         private readonly GameScene _scene;
         private readonly GameObjectsFactory _gameObjectsFactory;
 
+        private readonly Queue<BaseGraphicObject> _decals;
+
         private readonly ImmutableArray<GameObjectType> _passabilityMap;
         private readonly IDictionary<Vector2i, BaseGameObject> _obstacles;
 
         public GameField(GameScene scene, GameObjectsFactory gameObjectsFactory,  ImmutableArray<GameObjectType> passabilityMap)
         {
+            _decals = new();
+
             _scene = scene;
             _passabilityMap = passabilityMap;
             _gameObjectsFactory = gameObjectsFactory;
@@ -44,6 +49,18 @@ namespace DemoOpenTK
         {
             _obstacles.Remove(gameObject.Position);
             _gameObjectsFactory.AddToDeleteQueue(gameObject);
+            _gameObjectsFactory.GraphicFactory.AddToDeleteQueue(gameObject.GraphicObject);
+        }
+
+        public void SetDeacal(Vector2i position)
+        {
+            BaseGraphicObject graphicObject = _gameObjectsFactory.GraphicFactory.Create(GraphicObjectType.BombHoleDecal, position.X, 0, position.Y);
+            _decals.Enqueue(graphicObject);
+
+
+            if (_decals.Count > 3)
+                _gameObjectsFactory.GraphicFactory.AddToDeleteQueue(_decals.Dequeue());
+
         }
 
         public Bomb SetBomb(Vector2i prevPosition)
@@ -115,5 +132,6 @@ namespace DemoOpenTK
             _obstacles.Add(freeCell, gameObject);
             return;
         }
+
     }
 }

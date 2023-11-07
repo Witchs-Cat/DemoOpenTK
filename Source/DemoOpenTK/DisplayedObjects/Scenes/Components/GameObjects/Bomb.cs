@@ -52,6 +52,7 @@ namespace DemoOpenTK
                 }
             }
             Detonated?.Invoke();
+            Field.SetDeacal(Position);
         }
 
 

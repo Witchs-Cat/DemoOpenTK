@@ -21,8 +21,6 @@ namespace DemoOpenTK
 
         public virtual void OnRenderFrame(FrameEventArgs args)
         { }
-        public virtual void OnUpdateFrame(FrameEventArgs args)
-        { }
 
         public virtual void GetModelMatrix(out Matrix4 modelMatrix)
         {

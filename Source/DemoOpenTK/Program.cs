@@ -63,7 +63,8 @@ namespace DemoOpenTK
             GameScene scene = new(gameWinSettings, nativeWinSettings, loggerFactory);
             
             GraphicObjectsData graphicData = new(@"Assets\GraphicObjectsData.json", loggerFactory);
-            GameObjectsFactory gameObjectsFactory = new(scene, graphicData, loggerFactory);
+            GraphicObjectsFactory graphicObjectsFactiry = new(scene, graphicData, loggerFactory);
+            GameObjectsFactory gameObjectsFactory = new(scene, graphicObjectsFactiry, loggerFactory);
             GameField gameField = new(scene, gameObjectsFactory, _passabilityMap);
 
             scene.Run();

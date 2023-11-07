@@ -23,12 +23,12 @@ namespace DemoOpenTK
         public override void OnUpdateFrame( FrameEventArgs args)
         {
             base.OnUpdateFrame(args);
+            
+            if (_keyboardState.WasKeyDown(Keys.Space))
+                _setBomb = true && _bomb == null;
 
             if (AnimationsQueue.Any())
                 return;
-
-            if (_keyboardState.WasKeyDown(Keys.Space))
-                _setBomb = true && _bomb == null;
 
             if (_keyboardState.WasKeyDown(Keys.W))
                 TryMove(new Vector2i(-1,0));

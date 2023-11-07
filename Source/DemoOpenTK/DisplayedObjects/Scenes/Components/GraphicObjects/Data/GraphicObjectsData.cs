@@ -19,11 +19,11 @@ namespace DemoOpenTK
             _loggerFactory = loggerFactory;
             _logger = loggerFactory?.CreateLogger<GraphicObjectsData>();
             TexturesFilter = new PointTextureFilter();
-            Objects = ImmutableDictionary<GameObjectType, GraphicObjectData>.Empty;
+            Objects = ImmutableDictionary<GraphicObjectType, GraphicObjectData>.Empty;
         }
        
         public ITextureFilter TexturesFilter { get; private set; }
-        public IImmutableDictionary<GameObjectType, GraphicObjectData> Objects { get; private set; }
+        public IImmutableDictionary<GraphicObjectType, GraphicObjectData> Objects { get; private set; }
 
         public void Load()
         {
@@ -42,7 +42,7 @@ namespace DemoOpenTK
             GraphicObjectsDataModel model = JsonSerializer.Deserialize<GraphicObjectsDataModel>(stream)
                 ?? throw new SerializationException(_pathToFile);
 
-            Dictionary<GameObjectType, GraphicObjectData> objects = new();
+            Dictionary<GraphicObjectType, GraphicObjectData> objects = new();
             BaseMaterial[] materials = new BaseMaterial[model.Materials.Count()];
 
             TextureFilterType filterType = Enum.Parse<TextureFilterType>(model.TexturesFilterType);
@@ -57,7 +57,7 @@ namespace DemoOpenTK
 
             foreach (KeyValuePair<string, GraphicObjectDataModel> objectTypeData in model.Objects)
             {
-                GameObjectType objectType = Enum.Parse<GameObjectType>(objectTypeData.Key, true);
+                GraphicObjectType objectType = Enum.Parse<GraphicObjectType>(objectTypeData.Key, true);
                 GraphicObjectDataModel objectModel = objectTypeData.Value;
 
                 MeshBuilder builder = new (_loggerFactory?.CreateLogger<MeshBuilder>());
