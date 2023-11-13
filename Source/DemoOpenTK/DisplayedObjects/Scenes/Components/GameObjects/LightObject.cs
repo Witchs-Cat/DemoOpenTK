@@ -24,11 +24,5 @@ namespace DemoOpenTK
             AnimationsQueue.Enqueue(animation);
             return true;
         }
-
-        public override bool TryRemove()
-        {
-            Field.Remove(this);
-            return true;
-        }
     }
 }

@@ -54,7 +54,7 @@ namespace DemoOpenTK
 
         public void SetDeacal(Vector2i position)
         {
-            BaseGraphicObject graphicObject = _gameObjectsFactory.GraphicFactory.Create(GraphicObjectType.BombHoleDecal, position.X, 0, position.Y);
+            BaseGraphicObject graphicObject = _gameObjectsFactory.GraphicFactory.Create(GraphicObjectType.BombHoleDecal, position.X, -0.5f, position.Y);
             _decals.Enqueue(graphicObject);
 
 
@@ -92,6 +92,7 @@ namespace DemoOpenTK
         private void PlaceObstacles(bool[,] occupiedCells, int size)
         {
             BaseGameObject gameObject;
+            
             for (int i = 0; i < _passabilityMap.Length; i++)
             {
                 GameObjectType objectType = _passabilityMap[i];
@@ -104,7 +105,8 @@ namespace DemoOpenTK
 
                 occupiedCells[x, y] = true;
             }
-            gameObject = _gameObjectsFactory.Create(this, GameObjectType.Field, 10, 10, -0.5f);
+
+            _gameObjectsFactory.GraphicFactory.Create(GraphicObjectType.Field, 10, -0.5f, 10);
         }
 
         private void PlaceMonsters(bool[,] occupiedCells, int size)

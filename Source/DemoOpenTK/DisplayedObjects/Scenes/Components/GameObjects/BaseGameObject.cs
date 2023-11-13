@@ -4,7 +4,7 @@ using OpenTK.Windowing.Common;
 
 namespace DemoOpenTK
 {
-    public class BaseGameObject
+    public abstract class BaseGameObject
     {
         private Vector2i _position;
 
@@ -37,10 +37,6 @@ namespace DemoOpenTK
         public virtual void OnUpdateFrame(FrameEventArgs args)
         { }
 
-        public virtual bool TryRemove()
-        {
-            //Field.Remove(this);
-            return false;
-        }
+        public abstract bool TryRemove();
     }
 }

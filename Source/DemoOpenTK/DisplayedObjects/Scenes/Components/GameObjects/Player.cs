@@ -48,7 +48,7 @@ namespace DemoOpenTK
 
             if (Field.TryGetObstacle(newPostion, out BaseGameObject? obstacle))
             {
-                if ( obstacle is Bomb bomb)
+                if (obstacle is Bomb bomb)
                 {
                     bomb.Boom();
                     return true;
@@ -60,7 +60,7 @@ namespace DemoOpenTK
                 if (!movedObstacle.TryMove(shift))
                     return false;
             }
-   
+
             Position = newPostion;
 
             Vector3 graphicPosition = GraphicObject.Position;
@@ -76,12 +76,6 @@ namespace DemoOpenTK
                 _setBomb = false;
             }
 
-            return true;
-        }
-
-        public override bool TryRemove()
-        {
-            Field.Remove(this);
             return true;
         }
     }

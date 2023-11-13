@@ -14,7 +14,6 @@ namespace DemoOpenTK
         BorderObject,
         Player,
         Bomb,
-        Monster,
-        Field
+        Monster
     }
 }

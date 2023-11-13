@@ -12,8 +12,8 @@
         Player,
         Bomb,
         Monster,
-        Field,
 
+        Field,
         BombHoleDecal
     }
 }

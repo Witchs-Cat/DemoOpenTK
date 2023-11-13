@@ -1,0 +1,389 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="DemoOpenTK.BaseCamera" Collapsed="true">
+    <Position X="25.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEABAAAAAAAAAAAAQAAAAAAAACAAACAwAEAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\Camera\BaseCamera.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DemoOpenTK.MovingCamera" Collapsed="true">
+    <Position X="25.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAJAAAAAAAAAAAAAAEABAgAAAAAAAAAEEAAAAAEAAE=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\Camera\MovingCamera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.InactivityAnimation" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="34.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAQAAAAAAAAAAAAAAEAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GameObjects\Animations\InactivityAnimation.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DemoOpenTK.MoveAnimation" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="33" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAEAAJAAAAAAAABAAABAAABAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GameObjects\Animations\MoveAnimation.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DemoOpenTK.GameObjectsFactory" Collapsed="true">
+    <Position X="33" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBAAAAQAAAAAAAAAAACBACKAAAAEAAIAIAEAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GameObjects\Factory\GameObjectsFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.AnimatedGameObject" Collapsed="true">
+    <Position X="21.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAABAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GameObjects\AnimatedGameObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.BaseGameObject" Collapsed="true">
+    <Position X="22.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAIBAAAggAAAAAABAAAAAAAAAAAAgAAAgAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GameObjects\BaseGameObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.Bomb" Collapsed="true">
+    <Position X="20.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAQAAAAAAAAAAAAAAIAAAAAAgAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GameObjects\Bomb.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.GameObjectConfig" Collapsed="true">
+    <Position X="31.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAggAAAAAABAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GameObjects\GameObjectConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.LightObject" Collapsed="true">
+    <Position X="22.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GameObjects\LightObject.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DemoOpenTK.Monster" Collapsed="true">
+    <Position X="24.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgE=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GameObjects\Monster.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.Player" Collapsed="true">
+    <Position X="18" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAgAAAAABAAAAAAQAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GameObjects\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.StaticGameObject" Collapsed="true">
+    <Position X="27" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GameObjects\StaticGameObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.BaseMaterial" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="33" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAARgAAAAAAgAABAAAAAAAACAAAAAAAEAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Components\Materials\BaseMaterial.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DemoOpenTK.MeshBuilder" Collapsed="true">
+    <Position X="31.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwACAAAAQIIAAAAAAAAAAABABCAoIgAAAAAAAEAkAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Components\Meshes\Build\MeshBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.Polygon" Collapsed="true">
+    <Position X="36.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAwAEECAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Components\Meshes\Build\Polygon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.EBOMesh" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="38.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAADAAAAAAAAAAAAAgAAAAAgAAAAAIAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Components\Meshes\EBOMesh.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DemoOpenTK.Mesh" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="29.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAATAIAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Components\Meshes\Mesh.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DemoOpenTK.AnisotropicTextureFilter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="29.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Components\Textures\Filters\AnisotropicTextureFilter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DemoOpenTK.BilinearTextureFilter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="36.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Components\Textures\Filters\BilinearTextureFilter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DemoOpenTK.PointTextureFilter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="34.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Components\Textures\Filters\PointTextureFilter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DemoOpenTK.TrilinearTextureFilter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="31.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Components\Textures\Filters\TrilinearTextureFilter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DemoOpenTK.BaseTexture" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="34.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAADCAAQAAAAAgAAAAQBAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Components\Textures\BaseTexture.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DemoOpenTK.GraphicObjectDataModel" Collapsed="true">
+    <Position X="38.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAEAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Data\Models\GraphicObjectDataModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.GraphicObjectsDataModel" Collapsed="true">
+    <Position X="31.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAACAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Data\Models\GraphicObjectsDataModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.MaterialDataModel" Collapsed="true">
+    <Position X="36.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAQgAAAAAAgAABAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Data\Models\MaterialDataModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.GraphicObjectData" Collapsed="true">
+    <Position X="36.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQIAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Data\GraphicObjectData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.GraphicObjectsData" Collapsed="true">
+    <Position X="29.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAsAAAABAAAAAAAAAAAAACICAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Data\GraphicObjectsData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.GraphicObjectsFactory" Collapsed="true">
+    <Position X="33" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAARAAAAAAAAQAASAACAAAAAGAAIAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Factory\GraphicObjectsFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.Grid" Collapsed="true">
+    <Position X="17.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Primitives\Grid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.BaseGraphicObject" Collapsed="true">
+    <Position X="19" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAgAAgAAAABAAAAAAIACAAACAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\BaseGraphicObject.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DemoOpenTK.MeshGraphicObject" Collapsed="true">
+    <Position X="20" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAQAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\MeshesGraphicObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.TextureGraphicObject" Collapsed="true">
+    <Position X="20" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAABAAACAAAAIAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\TextureGraphicObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.BaseLight" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="31.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEABAAAAAAAAAAAgAgAACAAAIAAAECAAAAAAAEAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\Lights\BaseLigth.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DemoOpenTK.GameField" Collapsed="true">
+    <Position X="29.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAIACAAEAAAIAABhDAAACAQAAAAAAAIIACIAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\GameField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.GameScene" Collapsed="true">
+    <Position X="34.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAIAAEAAAAAQAAAAAACMAAAACBAAAAAACAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\GameScene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.MatrixHelper" Collapsed="true">
+    <Position X="38.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utils\MatrixHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.Program" Collapsed="true">
+    <Position X="38.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.DisplayedObjects.Scenes.Components.GraphicObjects.Components.Materials.TexturedMaterial" Collapsed="true">
+    <Position X="29.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Components\Materials\TexturedMaterial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DemoOpenTK.DisplayedObjects.Scenes.Components.GraphicObjects.Decal" Collapsed="true">
+    <Position X="20" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Decal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="DemoOpenTK.Vertex" Collapsed="true">
+    <Position X="29.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAEAAAAAAAAAAAIAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Components\Meshes\Build\Vertex.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="DemoOpenTK.ICamera" Collapsed="true">
+    <Position X="22.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAACAAAAAwAAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\Camera\ICamera.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DemoOpenTK.IAnimation" Collapsed="true">
+    <Position X="29.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GameObjects\Animations\IAnimation.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DemoOpenTK.IMovable" Collapsed="true">
+    <Position X="31.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GameObjects\IMovable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DemoOpenTK.IMaterial" Collapsed="true">
+    <Position X="20.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAQgAAAAAAgAABAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Components\Materials\IMaterial.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DemoOpenTK.IMesh" Collapsed="true">
+    <Position X="18" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Components\Meshes\IMesh.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DemoOpenTK.ITextureFilter" Collapsed="true">
+    <Position X="22.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Components\Textures\Filters\ITextureFilter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DemoOpenTK.IGraphicObjectComponent" Collapsed="true">
+    <Position X="20.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Components\IGraphicObjectComponent.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DemoOpenTK.IDisplayedObject" Collapsed="true">
+    <Position X="22.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\IDisplayedObject.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="DemoOpenTK.AnimationState" Collapsed="true">
+    <Position X="29.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GameObjects\Animations\AnimationState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DemoOpenTK.GameObjectType" Collapsed="true">
+    <Position X="31.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAgIAAAAAAAAAAAAAAAAAAAgAAQQEAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GameObjects\Factory\GameObjectType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DemoOpenTK.TextureFilterType" Collapsed="true">
+    <Position X="34.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAgBCAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Data\TextureFilterType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DemoOpenTK.GraphicObjectType" Collapsed="true">
+    <Position X="33" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAgIAAAAAAAAAQAAAAAAAAAgAAQQEAgAA=</HashCode>
+      <FileName>DisplayedObjects\Scenes\Components\GraphicObjects\Factory\GraphicObjectType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -54,12 +54,5 @@ namespace DemoOpenTK
             Detonated?.Invoke();
             Field.SetDeacal(Position);
         }
-
-
-        public override bool TryRemove()
-        {
-            Field.Remove(this);
-            return base.TryRemove();
-        }
     }
 }

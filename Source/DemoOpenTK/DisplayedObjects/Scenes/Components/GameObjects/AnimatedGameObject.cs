@@ -22,5 +22,11 @@ namespace DemoOpenTK
             if (animation.State == AnimationState.Complitied)
                 AnimationsQueue.Dequeue();
         }
+
+        public override bool TryRemove()
+        {
+            Field.Remove(this);
+            return true;
+        }
     }
 }

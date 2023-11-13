@@ -91,7 +91,7 @@ namespace DemoOpenTK
                     break;
                 default:
                     config.Logger = _loggerFactory?.CreateLogger<BaseGameObject>();
-                    gameObject = new BaseGameObject(config);
+                    gameObject = new StaticGameObject(config);
                     break;
             }
 

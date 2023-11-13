@@ -16,30 +16,21 @@ namespace DemoOpenTK
         {
             base.OnUpdateFrame(args);
 
-            if (!AnimationsQueue.Any())
-            {
-                int randomNumber = _random.Next(0, 2);
+            if (AnimationsQueue.Any())
+                return;
 
-                if (randomNumber == 0b1)
-                {
-                    AnimationsQueue.Enqueue(new InactivityAnimation(this.GraphicObject, liveTimeSeconds:0.1d));
-                }
-                else
-                {
-                    randomNumber = (_random.Next(0, 2) == 1)? 1 : -1 ;
-                    int x = _random.Next(0, 2);
-                    int y = (x == 1) ? 0 : 1;
+            int vectorDirection = (_random.Next(0, 2) == 1)? 1 : -1 ;
 
-                    Vector2i moveVector = new Vector2i(x, y);
-                    moveVector *= randomNumber;
+            int x = _random.Next(0, 2);
+            int y = (x == 1) ? 0 : 1;
 
-                    TryMove(moveVector);
-                }
-            }
+            Vector2i moveVector = new(x, y);
+            moveVector *= vectorDirection;
 
+            TryMove(moveVector);
         }
 
-        private bool TryMove(Vector2i shift)
+        public bool TryMove(Vector2i shift)
         {
             Vector2i newPostion = Position + shift;
 
@@ -53,6 +44,7 @@ namespace DemoOpenTK
 
                 if (obstacle is not Player player)
                     return false;
+
                 player.TryRemove();
             }
 
@@ -62,13 +54,6 @@ namespace DemoOpenTK
            
             AnimationsQueue.Enqueue(moveAnimation);
 
-            return true;
-        }
-
-
-        public override bool TryRemove()
-        {
-            Field.Remove(this);
             return true;
         }
     }
